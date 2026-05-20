@@ -115,9 +115,6 @@ export function usePaths() {
   // Update node status
   async function updateNodeStatus(nodeId, newStatus) {
     if (isDemo || !isSupabaseConfigured) {
-      // #region agent log
-      fetch('http://127.0.0.1:7309/ingest/dcccb5c6-39ce-49f0-91a7-ac3032c790c1',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'70b669'},body:JSON.stringify({sessionId:'70b669',hypothesisId:'C',location:'usePaths.js:updateNodeStatus:demo',message:'demo status update',data:{nodeId,newStatus,pathsCount:paths.length},timestamp:Date.now()})}).catch(()=>{});
-      // #endregion
       const updated = paths.map((path) => ({
         ...path,
         phases: path.phases.map((phase) => ({
@@ -137,13 +134,7 @@ export function usePaths() {
       setPaths(updated);
       try {
         saveDemoPaths(updated);
-        // #region agent log
-        fetch('http://127.0.0.1:7309/ingest/dcccb5c6-39ce-49f0-91a7-ac3032c790c1',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'70b669'},body:JSON.stringify({sessionId:'70b669',hypothesisId:'C',location:'usePaths.js:updateNodeStatus:saved',message:'demo paths saved',data:{nodeId,newStatus,storageKey:DEMO_STORAGE_KEY},timestamp:Date.now()})}).catch(()=>{});
-        // #endregion
       } catch (saveErr) {
-        // #region agent log
-        fetch('http://127.0.0.1:7309/ingest/dcccb5c6-39ce-49f0-91a7-ac3032c790c1',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'70b669'},body:JSON.stringify({sessionId:'70b669',hypothesisId:'C',location:'usePaths.js:updateNodeStatus:saveError',message:'demo save failed',data:{nodeId,error:String(saveErr)},timestamp:Date.now()})}).catch(()=>{});
-        // #endregion
         return { error: saveErr };
       }
       return { error: null };

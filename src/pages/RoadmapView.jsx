@@ -23,17 +23,11 @@ export default function RoadmapView() {
   const path = getPath(pathId);
 
   const handleNodeClick = useCallback((node) => {
-    // #region agent log
-    fetch('http://127.0.0.1:7309/ingest/dcccb5c6-39ce-49f0-91a7-ac3032c790c1',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'70b669'},body:JSON.stringify({sessionId:'70b669',hypothesisId:'A',location:'RoadmapView.jsx:handleNodeClick',message:'node card clicked',data:{nodeId:node?.id,innerWidth:window.innerWidth,scrollY:window.scrollY},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
     setSelectedNode(node);
     setDrawerOpen(true);
   }, []);
 
   const handleStatusChange = async (nodeId, newStatus) => {
-    // #region agent log
-    fetch('http://127.0.0.1:7309/ingest/dcccb5c6-39ce-49f0-91a7-ac3032c790c1',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'70b669'},body:JSON.stringify({sessionId:'70b669',hypothesisId:'C',location:'RoadmapView.jsx:handleStatusChange:entry',message:'status change start',data:{nodeId,newStatus},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
     const { error } = await updateNodeStatus(nodeId, newStatus);
 
     if (!error) {
@@ -50,9 +44,6 @@ export default function RoadmapView() {
 
       const node = allNodes.find((n) => n.id === nodeId);
       const nodeType = node?.type || 'action';
-      // #region agent log
-      fetch('http://127.0.0.1:7309/ingest/dcccb5c6-39ce-49f0-91a7-ac3032c790c1',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'70b669'},body:JSON.stringify({sessionId:'70b669',hypothesisId:'D',location:'RoadmapView.jsx:handleStatusChange:success',message:'status change ok',data:{nodeId,newStatus,nodeType,found:!!node},timestamp:Date.now()})}).catch(()=>{});
-      // #endregion
 
       if (newStatus === 'done' && nodeType === 'milestone') {
         fireConfetti();

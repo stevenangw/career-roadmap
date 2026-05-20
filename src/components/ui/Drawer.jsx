@@ -10,13 +10,6 @@ export default function Drawer({ isOpen, onClose, title, children, width = '420p
       if (e.key === 'Escape') onClose();
     }
     if (isOpen) {
-      // #region agent log
-      requestAnimationFrame(() => {
-        const el = drawerRef.current;
-        const rect = el?.getBoundingClientRect();
-        fetch('http://127.0.0.1:7309/ingest/dcccb5c6-39ce-49f0-91a7-ac3032c790c1',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'70b669'},body:JSON.stringify({sessionId:'70b669',hypothesisId:'B',location:'Drawer.jsx:open',message:'drawer opened',data:{innerWidth:window.innerWidth,innerHeight:window.innerHeight,drawerHeight:rect?.height,drawerTop:rect?.top,drawerBottom:rect?.bottom,overflowsViewport:rect ? rect.bottom > window.innerHeight || rect.top < 0 : null},timestamp:Date.now()})}).catch(()=>{});
-      });
-      // #endregion
       document.addEventListener('keydown', handleEsc);
       document.body.style.overflow = 'hidden';
     }
