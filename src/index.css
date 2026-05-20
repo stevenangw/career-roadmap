@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+/* ========================================
+   PathForge Design System (Humanized/Minimal)
+   ======================================== */
+
+@theme {
+  /* ---- Typography ---- */
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ---- Colors: Dark Theme (default - minimal black) ---- */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0A0A0A;
+  --color-bg-surface: #0A0A0A;
+  --color-bg-elevated: #111111;
+  --color-bg-hover: #1A1A1A;
+
+  --color-border-primary: #222222;
+  --color-border-secondary: #333333;
+  --color-border-accent: #E5E5E5;
+
+  --color-text-primary: #EDEDED;
+  --color-text-secondary: #A1A1A1;
+  --color-text-tertiary: #737373;
+  --color-text-inverse: #000000;
+
+  /* ---- Accent Colors (Muted) ---- */
+  --color-accent-blue: #2563EB;
+  --color-accent-purple: #7C3AED;
+  --color-accent-green: #16A34A;
+  --color-accent-yellow: #CA8A04;
+  --color-accent-orange: #EA580C;
+  --color-accent-red: #DC2626;
+  --color-accent-pink: #DB2777;
+  --color-accent-indigo: #4F46E5;
+
+  /* ---- Node Type Colors ---- */
+  --color-node-action: #2563EB;
+  --color-node-skill: #CA8A04;
+  --color-node-cert: #16A34A;
+  --color-node-project: #EA580C;
+  --color-node-milestone: #7C3AED;
+
+  /* ---- Status Colors ---- */
+  --color-status-todo: #404040;
+  --color-status-progress: #CA8A04;
+  --color-status-done: #16A34A;
+
+  /* ---- Spacing ---- */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* ---- Border Radius (Slightly sharper) ---- */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  /* ---- Shadows (Tighter, no glows) ---- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+
+  /* ---- Transitions ---- */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---- Z-index ---- */
+  --z-dropdown: 50;
+  --z-drawer: 60;
+  --z-modal: 70;
+  --z-toast: 80;
+  --z-tooltip: 90;
+}
+
+/* ========================================
+   Light Theme Override (Clean White)
+   ======================================== */
+
+[data-theme="light"] {
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #FAFAFA;
+  --color-bg-surface: #FFFFFF;
+  --color-bg-elevated: #F5F5F5;
+  --color-bg-hover: #EBEBEB;
+
+  --color-border-primary: #E5E5E5;
+  --color-border-secondary: #D4D4D4;
+  --color-border-accent: #171717;
+
+  --color-text-primary: #171717;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #A3A3A3;
+  --color-text-inverse: #FFFFFF;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   Base Styles
+   ======================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500; /* Less bold for a cleaner look */
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ========================================
+   Scrollbar
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-secondary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* ========================================
+   Animations (Subtle & Functional)
+   ======================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-slide-in-right { animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-slide-out-right { animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.animate-spin { animation: spin 1s linear infinite; }
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+
+/* ========================================
+   React Flow Overrides
+   ======================================== */
+
+.react-flow__background {
+  background-color: var(--color-bg-primary) !important;
+}
+
+.react-flow__controls {
+  background: var(--color-bg-surface) !important;
+  border: 1px solid var(--color-border-primary) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.react-flow__controls-button {
+  background: var(--color-bg-surface) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--color-border-primary) !important;
+  color: var(--color-text-secondary) !important;
+  fill: var(--color-text-secondary) !important;
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: none !important;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--color-bg-hover) !important;
+  color: var(--color-text-primary) !important;
+  fill: var(--color-text-primary) !important;
+}
+
+.react-flow__edge-path {
+  stroke: var(--color-border-secondary) !important;
+  stroke-width: 2 !important;
+}
+
+.react-flow__minimap {
+  background: var(--color-bg-surface) !important;
+  border: 1px solid var(--color-border-primary) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+/* ========================================
+   Utilities
+   ======================================== */
+
+.glass {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-primary);
+}
+
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Page transition wrapper */
+.page-enter {
+  animation: fadeIn 0.3s ease-out;
+}
