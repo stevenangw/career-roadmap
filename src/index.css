@@ -1,52 +1,52 @@
 @import "tailwindcss";
 
 /* ========================================
-   PathForge Design System (Humanized/Minimal)
+   Steven's Career Journey Design System (Premium & Immersive)
    ======================================== */
 
 @theme {
   /* ---- Typography ---- */
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-heading: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* ---- Colors: Dark Theme (default - minimal black) ---- */
-  --color-bg-primary: #000000;
-  --color-bg-secondary: #0A0A0A;
-  --color-bg-surface: #0A0A0A;
-  --color-bg-elevated: #111111;
-  --color-bg-hover: #1A1A1A;
+  /* ---- Colors: Sleek Dark Theme (Default) ---- */
+  --color-bg-primary: hsl(240, 10%, 3.9%);
+  --color-bg-secondary: hsl(240, 10%, 6%);
+  --color-bg-surface: hsl(240, 10%, 6%);
+  --color-bg-elevated: hsl(240, 10%, 9%);
+  --color-bg-hover: hsl(240, 10%, 13%);
 
-  --color-border-primary: #222222;
-  --color-border-secondary: #333333;
-  --color-border-accent: #E5E5E5;
+  --color-border-primary: rgba(255, 255, 255, 0.08);
+  --color-border-secondary: rgba(255, 255, 255, 0.15);
+  --color-border-accent: hsl(240, 5%, 90%);
 
-  --color-text-primary: #EDEDED;
-  --color-text-secondary: #A1A1A1;
-  --color-text-tertiary: #737373;
-  --color-text-inverse: #000000;
+  --color-text-primary: hsl(0, 0%, 94%);
+  --color-text-secondary: hsl(240, 5%, 68%);
+  --color-text-tertiary: hsl(240, 5%, 48%);
+  --color-text-inverse: hsl(240, 10%, 3.9%);
 
-  /* ---- Accent Colors (Muted) ---- */
-  --color-accent-blue: #2563EB;
-  --color-accent-purple: #7C3AED;
-  --color-accent-green: #16A34A;
-  --color-accent-yellow: #CA8A04;
-  --color-accent-orange: #EA580C;
-  --color-accent-red: #DC2626;
-  --color-accent-pink: #DB2777;
-  --color-accent-indigo: #4F46E5;
+  /* ---- Accent Colors (Tailored HSL) ---- */
+  --color-accent-blue: hsl(217, 91%, 60%);
+  --color-accent-purple: hsl(262, 83%, 62%);
+  --color-accent-green: hsl(142, 72%, 40%);
+  --color-accent-yellow: hsl(38, 92%, 50%);
+  --color-accent-orange: hsl(24, 94%, 50%);
+  --color-accent-red: hsl(0, 84%, 60%);
+  --color-accent-pink: hsl(330, 81%, 60%);
+  --color-accent-indigo: hsl(243, 75%, 59%);
 
   /* ---- Node Type Colors ---- */
-  --color-node-action: #2563EB;
-  --color-node-skill: #CA8A04;
-  --color-node-cert: #16A34A;
-  --color-node-project: #EA580C;
-  --color-node-milestone: #7C3AED;
+  --color-node-action: hsl(217, 91%, 60%);
+  --color-node-skill: hsl(38, 92%, 50%);
+  --color-node-cert: hsl(142, 72%, 40%);
+  --color-node-project: hsl(24, 94%, 50%);
+  --color-node-milestone: hsl(262, 83%, 62%);
 
   /* ---- Status Colors ---- */
-  --color-status-todo: #404040;
-  --color-status-progress: #CA8A04;
-  --color-status-done: #16A34A;
+  --color-status-todo: hsl(240, 5%, 35%);
+  --color-status-progress: hsl(38, 92%, 50%);
+  --color-status-done: hsl(142, 72%, 40%);
 
   /* ---- Spacing ---- */
   --spacing-xs: 0.25rem;
@@ -57,24 +57,24 @@
   --spacing-2xl: 3rem;
   --spacing-3xl: 4rem;
 
-  /* ---- Border Radius (Slightly sharper) ---- */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 1rem;
+  /* ---- Border Radius (Smooth & Modern) ---- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
   --radius-full: 9999px;
 
-  /* ---- Shadows (Tighter, no glows) ---- */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+  /* ---- Ambient Shadows (Soft & Elegant) ---- */
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px -4px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 32px -8px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 20px 48px -12px rgba(0, 0, 0, 0.8);
 
   /* ---- Transitions ---- */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 380ms cubic-bezier(0.16, 1, 0.3, 1);
 
   /* ---- Z-index ---- */
   --z-dropdown: 50;
@@ -85,29 +85,29 @@
 }
 
 /* ========================================
-   Light Theme Override (Clean White)
+   Light Theme Override (Sophisticated Alabaster)
    ======================================== */
 
 [data-theme="light"] {
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #FAFAFA;
-  --color-bg-surface: #FFFFFF;
-  --color-bg-elevated: #F5F5F5;
-  --color-bg-hover: #EBEBEB;
+  --color-bg-primary: hsl(0, 0%, 98%);
+  --color-bg-secondary: hsl(0, 0%, 95%);
+  --color-bg-surface: hsl(0, 0%, 100%);
+  --color-bg-elevated: hsl(0, 0%, 93%);
+  --color-bg-hover: hsl(0, 0%, 90%);
 
-  --color-border-primary: #E5E5E5;
-  --color-border-secondary: #D4D4D4;
-  --color-border-accent: #171717;
+  --color-border-primary: rgba(0, 0, 0, 0.06);
+  --color-border-secondary: rgba(0, 0, 0, 0.12);
+  --color-border-accent: hsl(240, 10%, 10%);
 
-  --color-text-primary: #171717;
-  --color-text-secondary: #666666;
-  --color-text-tertiary: #A3A3A3;
-  --color-text-inverse: #FFFFFF;
+  --color-text-primary: hsl(240, 10%, 10%);
+  --color-text-secondary: hsl(240, 5%, 40%);
+  --color-text-tertiary: hsl(240, 5%, 60%);
+  --color-text-inverse: hsl(0, 0%, 98%);
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 32px -8px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 48px -12px rgba(0, 0, 0, 0.12);
 }
 
 /* ========================================
@@ -133,13 +133,23 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   transition: background-color var(--transition-normal), color var(--transition-normal);
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(243, 75%, 59%, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(262, 83%, 62%, 0.05) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+[data-theme="light"] body {
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(243, 75%, 59%, 0.02) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(262, 83%, 62%, 0.02) 0px, transparent 50%);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 500; /* Less bold for a cleaner look */
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
 }
 
 code, pre, .font-mono {
@@ -149,6 +159,7 @@ code, pre, .font-mono {
 a {
   color: inherit;
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 button {
@@ -166,8 +177,8 @@ img {
    ======================================== */
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -175,7 +186,7 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border-secondary);
+  background: var(--color-border-primary);
   border-radius: var(--radius-full);
 }
 
@@ -184,12 +195,17 @@ img {
 }
 
 /* ========================================
-   Animations (Subtle & Functional)
+   Animations (Sophisticated & Modern)
    ======================================== */
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideInRight {
@@ -207,15 +223,26 @@ img {
   to { transform: rotate(360deg); }
 }
 
-.animate-fade-in { animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.animate-slide-in-right { animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.animate-slide-out-right { animation: slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.animate-spin { animation: spin 1s linear infinite; }
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-in { animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-in-right { animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-out-right { animation: slideOutRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-spin { animation: spin 1.2s linear infinite; }
 
 /* Stagger children animations */
 .stagger-children > * {
   opacity: 0;
-  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
 .stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
@@ -225,65 +252,24 @@ img {
 .stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
 
 /* ========================================
-   React Flow Overrides
-   ======================================== */
-
-.react-flow__background {
-  background-color: var(--color-bg-primary) !important;
-}
-
-.react-flow__controls {
-  background: var(--color-bg-surface) !important;
-  border: 1px solid var(--color-border-primary) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-sm) !important;
-}
-
-.react-flow__controls-button {
-  background: var(--color-bg-surface) !important;
-  border: none !important;
-  border-bottom: 1px solid var(--color-border-primary) !important;
-  color: var(--color-text-secondary) !important;
-  fill: var(--color-text-secondary) !important;
-}
-
-.react-flow__controls-button:last-child {
-  border-bottom: none !important;
-}
-
-.react-flow__controls-button:hover {
-  background: var(--color-bg-hover) !important;
-  color: var(--color-text-primary) !important;
-  fill: var(--color-text-primary) !important;
-}
-
-.react-flow__edge-path {
-  stroke: var(--color-border-secondary) !important;
-  stroke-width: 2 !important;
-}
-
-.react-flow__minimap {
-  background: var(--color-bg-surface) !important;
-  border: 1px solid var(--color-border-primary) !important;
-  border-radius: var(--radius-lg) !important;
-}
-
-/* ========================================
-   Utilities
+   Glassmorphism Styles
    ======================================== */
 
 .glass {
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border-primary);
+  background: rgba(10, 10, 12, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 [data-theme="light"] .glass {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 /* Page transition wrapper */
 .page-enter {
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }

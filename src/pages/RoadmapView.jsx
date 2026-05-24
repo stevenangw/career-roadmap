@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Check, Loader2, Circle } from 'lucide-react';
+import { ArrowLeft, Check, Loader2, Circle, ExternalLink, BookOpen } from 'lucide-react';
 import { usePaths } from '../hooks/usePaths';
 import { useStreak } from '../hooks/useStreak';
 import { STATUS_CONFIG, calculateProgress, getAllNodesFromPath, timeAgo } from '../lib/constants';
@@ -47,11 +47,11 @@ export default function RoadmapView() {
 
       if (newStatus === 'done' && nodeType === 'milestone') {
         fireConfetti();
-        toast('Milestone selesai. Luar biasa!', 'success');
+        toast('Milestone completed. Awesome!', 'success');
       } else if (newStatus === 'done') {
-        toast('Task selesai.', 'success');
+        toast('Task completed.', 'success');
       } else if (newStatus === 'in_progress') {
-        toast('Task dimulai.', 'info');
+        toast('Task started.', 'info');
       }
     }
   };
@@ -65,7 +65,8 @@ export default function RoadmapView() {
 
   if (loading) {
     return (
-      <div style={{ padding: '2rem' }}>
+      <div className="pf-timeline-loading">
+        <SkeletonCard />
         <SkeletonCard />
       </div>
     );
@@ -73,10 +74,10 @@ export default function RoadmapView() {
 
   if (!path) {
     return (
-      <div style={{ padding: '2rem', textAlign: 'center' }}>
-        <h2>Path tidak ditemukan</h2>
+      <div className="pf-timeline-error">
+        <h2>Roadmap not found</h2>
         <Button onClick={() => navigate('/dashboard')} variant="secondary" style={{ marginTop: '1rem' }}>
-          Kembali ke Dashboard
+          Back to Dashboard
         </Button>
       </div>
     );
@@ -87,13 +88,13 @@ export default function RoadmapView() {
 
   return (
     <div className="pf-roadmap-view animate-fade-in">
-      {/* Header */}
-      <div className="pf-roadmap-header">
+      {/* Header card with glass */}
+      <div className="pf-roadmap-header glass">
         <div className="pf-roadmap-header-left">
           <Button variant="ghost" size="sm" icon={ArrowLeft} onClick={() => navigate('/dashboard')}>
             Dashboard
           </Button>
-          <div>
+          <div className="pf-roadmap-info">
             <h1 style={{ color: path.color }}>{path.title}</h1>
             {path.description && <p className="pf-roadmap-desc">{path.description}</p>}
           </div>
@@ -106,16 +107,28 @@ export default function RoadmapView() {
       {/* Checklist Timeline View */}
       <div className="pf-timeline-container">
         {path.phases && path.phases.length === 0 ? (
-          <div className="pf-no-phases">Belum ada fase dalam roadmap ini.</div>
+          <div className="pf-no-phases">No phases in this roadmap yet.</div>
         ) : (
-          <div className="pf-timeline-track-wrapper">
+          <div className="pf-timeline-track-wrapper" style={{ '--path-color': path.color }}>
             {path.phases.map((phase, phaseIdx) => {
               const phaseNodes = phase.nodes || [];
+              const phaseDoneCount = phaseNodes.filter((n) => n.status === 'done').length;
+              const isPhaseDone = phaseNodes.length > 0 && phaseDoneCount === phaseNodes.length;
+              const isPhaseInProgress = phaseNodes.some((n) => n.status === 'in_progress' || n.status === 'done') && !isPhaseDone;
+
               return (
-                <div key={phase.id} className="pf-timeline-phase">
+                <div key={phase.id} className={`pf-timeline-phase ${isPhaseDone ? 'done' : ''} ${isPhaseInProgress ? 'in-progress' : ''}`}>
                   {/* Phase Milestone Marker */}
                   <div className="pf-phase-marker-row">
-                    <div className="pf-phase-dot" style={{ backgroundColor: path.color }}>
+                    <div 
+                      className={`pf-phase-dot ${isPhaseDone ? 'done' : ''} ${isPhaseInProgress ? 'in-progress' : ''}`} 
+                      style={{ 
+                        backgroundColor: isPhaseDone ? 'var(--color-accent-green)' : isPhaseInProgress ? 'var(--color-accent-yellow)' : 'var(--color-bg-hover)',
+                        color: isPhaseDone || isPhaseInProgress ? 'var(--color-bg-primary)' : 'var(--color-text-tertiary)',
+                        border: `2px solid ${isPhaseDone ? 'var(--color-accent-green)' : isPhaseInProgress ? 'var(--color-accent-yellow)' : 'var(--color-border-primary)'}`,
+                        boxShadow: isPhaseDone ? '0 0 15px rgba(16, 185, 129, 0.4)' : isPhaseInProgress ? '0 0 15px rgba(245, 158, 11, 0.4)' : 'none'
+                      }}
+                    >
                       {phaseIdx + 1}
                     </div>
                     <div className="pf-phase-info">
@@ -135,7 +148,10 @@ export default function RoadmapView() {
                       return (
                         <div
                           key={node.id}
-                          className={`pf-timeline-node-card ${isDone ? 'done' : ''} ${isInProgress ? 'in-progress' : ''}`}
+                          className={`pf-timeline-node-card glass ${isDone ? 'done' : ''} ${isInProgress ? 'in-progress' : ''}`}
+                          style={{
+                            '--node-border': path.color,
+                          }}
                           onClick={() => handleNodeClick(node)}
                         >
                           {/* Left status interactive toggle indicator */}
@@ -145,11 +161,11 @@ export default function RoadmapView() {
                             title={`Status: ${STATUS_CONFIG[node.status]?.label}. Klik untuk mengubah.`}
                           >
                             {isDone ? (
-                              <Check size={14} strokeWidth={3} />
+                              <Check size={13} strokeWidth={3.5} />
                             ) : isInProgress ? (
-                              <Loader2 size={14} className="animate-spin" style={{ color: '#CA8A04' }} />
+                              <Loader2 size={13} className="animate-spin" style={{ color: 'var(--color-accent-yellow)' }} />
                             ) : (
-                              <Circle size={14} />
+                              <Circle size={13} />
                             )}
                           </button>
 
@@ -176,11 +192,14 @@ export default function RoadmapView() {
         )}
       </div>
 
-      {/* Node detail drawer */}
-      <Drawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} title="Detail Task">
+      {/* Node detail drawer with beautiful glassmorphism */}
+      <Drawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} title="Task Details">
         {selectedNode && (
-          <div className="pf-node-detail">
-            <Badge type={selectedNode.type} />
+          <div className="pf-node-detail animate-fade-in">
+            <div className="pf-detail-header-badge">
+              <Badge type={selectedNode.type} />
+            </div>
+            
             <h2 className="pf-node-detail-label">{selectedNode.label}</h2>
 
             {selectedNode.detail && (
@@ -190,7 +209,10 @@ export default function RoadmapView() {
             {/* Clickable resource links */}
             {selectedNode.links && selectedNode.links.length > 0 && (
               <div className="pf-node-detail-section">
-                <span className="pf-node-detail-section-title">📚 Sumber Belajar & Referensi</span>
+                <span className="pf-node-detail-section-title">
+                  <BookOpen size={13} style={{ marginRight: '0.35rem', display: 'inline' }} />
+                  References & Learning Resources
+                </span>
                 <div className="pf-links-list">
                   {selectedNode.links.map((link, idx) => (
                     <a
@@ -200,7 +222,10 @@ export default function RoadmapView() {
                       rel="noopener noreferrer"
                       className="pf-resource-link"
                     >
-                      <span className="pf-resource-link-title">{link.title}</span>
+                      <div className="pf-resource-link-info">
+                        <span className="pf-resource-link-title">{link.title}</span>
+                        <ExternalLink size={12} className="pf-resource-link-icon" />
+                      </div>
                       <span className={`pf-resource-tag ${link.tag === 'Financial Aid' ? 'financial-aid' : 'free'}`}>
                         {link.tag}
                       </span>
@@ -211,7 +236,7 @@ export default function RoadmapView() {
             )}
 
             <div className="pf-node-detail-section">
-              <span className="pf-node-detail-section-title">Status</span>
+              <span className="pf-node-detail-section-title">Progress Status</span>
               <div className="pf-status-buttons">
                 {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
                   <button
@@ -231,7 +256,7 @@ export default function RoadmapView() {
 
             {selectedNode.updated_at && (
               <div className="pf-node-detail-meta">
-                Terakhir diupdate: {timeAgo(selectedNode.updated_at)}
+                Last updated: {timeAgo(selectedNode.updated_at)}
               </div>
             )}
           </div>
@@ -242,56 +267,74 @@ export default function RoadmapView() {
         .pf-roadmap-view {
           display: flex;
           flex-direction: column;
-          gap: 1.5rem;
-          max-width: 800px;
+          gap: 2rem;
+          max-width: 860px;
           margin: 0 auto;
           padding-bottom: 4rem;
         }
+
+        .pf-timeline-loading, .pf-timeline-error {
+          padding: 2rem;
+          text-align: center;
+        }
+
+        /* Header Card styling */
         .pf-roadmap-header {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          padding: 1.5rem 2rem;
+          border-radius: var(--radius-2xl);
+          border: 1px solid var(--color-border-primary);
           gap: 1.5rem;
           flex-wrap: wrap;
+          box-shadow: var(--shadow-md);
         }
         .pf-roadmap-header-left {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 1.25rem;
+        }
+        .pf-roadmap-info {
+          display: flex;
+          flex-direction: column;
         }
         .pf-roadmap-header-left h1 {
-          font-size: 1.5rem;
+          font-size: 1.45rem;
+          letter-spacing: -0.025em;
         }
         .pf-roadmap-desc {
-          font-size: 0.85rem;
+          font-size: 0.875rem;
           color: var(--color-text-secondary);
-          margin-top: 0.2rem;
+          margin-top: 0.25rem;
+          line-height: 1.5;
         }
         .pf-roadmap-header-right {
-          min-width: 240px;
+          min-width: 260px;
+          flex-shrink: 0;
         }
 
-        /* Timeline Checklist Styling */
+        /* Timeline Checklist Layout */
         .pf-timeline-container {
           display: flex;
           flex-direction: column;
           gap: 2rem;
         }
-        .pf-no-phases, .pf-no-phases-nodes {
+        .pf-no-phases {
           text-align: center;
-          padding: 2.5rem;
+          padding: 3rem;
           color: var(--color-text-tertiary);
-          border: 1px dashed var(--color-border-primary);
-          border-radius: var(--radius-lg);
+          border: 1.5px dashed var(--color-border-primary);
+          border-radius: var(--radius-xl);
           font-size: 0.875rem;
         }
         .pf-timeline-track-wrapper {
           position: relative;
           display: flex;
           flex-direction: column;
-          gap: 2rem;
+          gap: 2.5rem;
         }
-        /* Vertical track line */
+        /* Vertical track connection lines */
         .pf-timeline-track-wrapper::before {
           content: '';
           position: absolute;
@@ -307,13 +350,13 @@ export default function RoadmapView() {
           position: relative;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 1.25rem;
           z-index: 1;
         }
         .pf-phase-marker-row {
           display: flex;
           align-items: center;
-          gap: 1rem;
+          gap: 1.15rem;
         }
         .pf-phase-dot {
           width: 36px;
@@ -322,60 +365,69 @@ export default function RoadmapView() {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #fff;
           font-family: var(--font-heading);
           font-weight: 700;
-          font-size: 1rem;
+          font-size: 0.95rem;
           z-index: 2;
           box-shadow: 0 0 0 6px var(--color-bg-primary);
+          transition: all var(--transition-normal);
         }
         .pf-phase-info {
           display: flex;
           align-items: baseline;
-          gap: 0.75rem;
+          gap: 0.85rem;
           flex-wrap: wrap;
         }
         .pf-phase-info h2 {
-          font-size: 1.1rem;
-          font-weight: 500;
+          font-size: 1.2rem;
+          font-weight: 600;
           color: var(--color-text-primary);
+          letter-spacing: -0.015em;
         }
         .pf-phase-duration {
-          font-size: 0.75rem;
+          font-size: 0.725rem;
           font-family: var(--font-mono);
           color: var(--color-text-tertiary);
           text-transform: uppercase;
-          letter-spacing: 0.04em;
+          letter-spacing: 0.05em;
+          background: var(--color-bg-hover);
+          padding: 0.2rem 0.5rem;
+          border-radius: var(--radius-md);
+          border: 1px solid var(--color-border-primary);
         }
 
-        /* Phase nodes card lists */
+        /* Phase lists cards */
         .pf-phase-nodes-list {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.65rem;
           margin-left: 3.25rem; /* Indent under phase header */
         }
         .pf-timeline-node-card {
           display: flex;
           align-items: center;
-          gap: 1rem;
-          padding: 1rem;
-          background: var(--color-bg-surface);
-          border: 1px solid var(--color-border-primary);
-          border-radius: var(--radius-lg);
+          gap: 1.25rem;
+          padding: 1.15rem 1.25rem;
+          border-radius: var(--radius-xl);
           cursor: pointer;
-          transition: all var(--transition-fast);
+          transition: all var(--transition-normal);
+          box-shadow: var(--shadow-sm);
         }
         .pf-timeline-node-card:hover {
-          background: var(--color-bg-elevated);
-          border-color: var(--color-border-secondary);
+          transform: translateX(4px);
+          border-color: var(--node-border);
+          background: color-mix(in srgb, var(--node-border) 4%, var(--color-bg-surface));
+          box-shadow: var(--shadow-md);
         }
         .pf-timeline-node-card.in-progress {
-          border-color: #CA8A04;
+          border-color: var(--color-accent-yellow);
+          box-shadow: 0 4px 16px rgba(245, 158, 11, 0.05);
         }
         .pf-timeline-node-card.done {
-          opacity: 0.55;
+          opacity: 0.6;
         }
+        
+        /* Left button indicator */
         .pf-node-toggle-btn {
           display: flex;
           align-items: center;
@@ -384,8 +436,8 @@ export default function RoadmapView() {
           height: 26px;
           border-radius: 50%;
           border: 1.5px solid var(--color-border-primary);
-          background: transparent;
-          color: var(--color-text-secondary);
+          background: var(--color-bg-elevated);
+          color: var(--color-text-tertiary);
           cursor: pointer;
           transition: all var(--transition-fast);
           flex-shrink: 0;
@@ -399,16 +451,19 @@ export default function RoadmapView() {
           background: var(--color-accent-green);
           border-color: var(--color-accent-green);
           color: #ffffff;
+          box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
         }
         .pf-node-toggle-btn.in_progress {
-          border-color: #CA8A04;
+          border-color: var(--color-accent-yellow);
+          background: rgba(245, 158, 11, 0.08);
         }
+
         .pf-node-card-body {
           flex: 1;
           min-width: 0;
         }
         .pf-node-card-title {
-          font-size: 0.9rem;
+          font-size: 0.95rem;
           font-weight: 500;
           color: var(--color-text-primary);
           display: block;
@@ -418,9 +473,9 @@ export default function RoadmapView() {
           color: var(--color-text-tertiary);
         }
         .pf-node-card-preview {
-          font-size: 0.775rem;
+          font-size: 0.8rem;
           color: var(--color-text-secondary);
-          margin-top: 0.25rem;
+          margin-top: 0.3rem;
           line-height: 1.4;
           white-space: nowrap;
           overflow: hidden;
@@ -430,38 +485,44 @@ export default function RoadmapView() {
           flex-shrink: 0;
         }
 
-        /* Side Node Detail Drawer Styles */
+        /* Slide Panel drawer details styling */
         .pf-node-detail {
           display: flex;
           flex-direction: column;
-          gap: 1.25rem;
+          gap: 1.5rem;
+        }
+        .pf-detail-header-badge {
+          align-self: flex-start;
         }
         .pf-node-detail-label {
-          font-size: 1.25rem;
+          font-size: 1.35rem;
           line-height: 1.3;
-          font-weight: 500;
+          font-weight: 600;
+          letter-spacing: -0.02em;
         }
         .pf-node-detail-text {
-          font-size: 0.875rem;
+          font-size: 0.9rem;
           color: var(--color-text-secondary);
           line-height: 1.6;
-          padding: 1rem;
+          padding: 1.25rem;
           background: var(--color-bg-elevated);
-          border-radius: var(--radius-lg);
+          border-radius: var(--radius-xl);
           border: 1px solid var(--color-border-primary);
         }
         .pf-node-detail-section {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.75rem;
         }
         .pf-node-detail-section-title {
           font-size: 0.75rem;
           font-family: var(--font-mono);
-          font-weight: 600;
+          font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.04em;
+          letter-spacing: 0.06em;
           color: var(--color-text-tertiary);
+          display: flex;
+          align-items: center;
         }
         .pf-status-buttons {
           display: flex;
@@ -469,8 +530,8 @@ export default function RoadmapView() {
         }
         .pf-status-btn {
           flex: 1;
-          padding: 0.6rem;
-          font-size: 0.8rem;
+          padding: 0.7rem;
+          font-size: 0.825rem;
           font-weight: 600;
           font-family: var(--font-heading);
           border: 1.5px solid var(--color-border-primary);
@@ -488,12 +549,13 @@ export default function RoadmapView() {
           background: var(--sb-bg);
           border-color: var(--sb-color);
           color: var(--sb-color);
+          box-shadow: 0 4px 12px color-mix(in srgb, var(--sb-color) 15%, transparent);
         }
         .pf-node-detail-meta {
           font-size: 0.75rem;
           color: var(--color-text-tertiary);
           font-family: var(--font-mono);
-          padding-top: 0.75rem;
+          padding-top: 1rem;
           border-top: 1px solid var(--color-border-primary);
         }
 
@@ -501,33 +563,44 @@ export default function RoadmapView() {
         .pf-links-list {
           display: flex;
           flex-direction: column;
-          gap: 0.4rem;
+          gap: 0.5rem;
         }
         .pf-resource-link {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 0.75rem;
-          padding: 0.65rem 0.85rem;
+          gap: 1rem;
+          padding: 0.8rem 1rem;
           background: var(--color-bg-elevated);
           border: 1px solid var(--color-border-primary);
-          border-radius: var(--radius-md);
-          text-decoration: none;
+          border-radius: var(--radius-lg);
           transition: all var(--transition-fast);
           cursor: pointer;
         }
         .pf-resource-link:hover {
           border-color: var(--color-accent-indigo);
-          background: rgba(99, 102, 241, 0.06);
-          transform: translateX(3px);
+          background: color-mix(in srgb, var(--color-accent-indigo) 6%, var(--color-bg-elevated));
+          transform: translateX(4px);
         }
-        .pf-resource-link-title {
-          font-size: 0.8rem;
-          font-weight: 500;
-          color: var(--color-accent-indigo);
-          line-height: 1.3;
+        .pf-resource-link-info {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
           min-width: 0;
           flex: 1;
+        }
+        .pf-resource-link-title {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: var(--color-accent-indigo);
+          line-height: 1.4;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .pf-resource-link-icon {
+          color: var(--color-accent-indigo);
+          flex-shrink: 0;
         }
         .pf-resource-tag {
           flex-shrink: 0;
@@ -535,26 +608,26 @@ export default function RoadmapView() {
           font-family: var(--font-mono);
           font-weight: 600;
           text-transform: uppercase;
-          letter-spacing: 0.03em;
-          padding: 0.2rem 0.5rem;
+          letter-spacing: 0.05em;
+          padding: 0.25rem 0.6rem;
           border-radius: var(--radius-full);
           white-space: nowrap;
         }
         .pf-resource-tag.free {
-          background: rgba(16, 185, 129, 0.15);
-          color: #10B981;
+          background: rgba(16, 185, 129, 0.12);
+          color: var(--color-accent-green);
         }
         .pf-resource-tag.financial-aid {
-          background: rgba(139, 92, 246, 0.15);
-          color: #8B5CF6;
+          background: rgba(139, 92, 246, 0.12);
+          color: var(--color-accent-purple);
         }
 
-        @media (max-width: 640px) {
-          .pf-roadmap-header { flex-direction: column; align-items: flex-start; }
+        @media (max-width: 768px) {
+          .pf-roadmap-header { flex-direction: column; align-items: flex-start; padding: 1.25rem 1.5rem; }
           .pf-roadmap-header-right { width: 100%; min-width: 0; }
           .pf-phase-nodes-list { margin-left: 0; }
           .pf-timeline-track-wrapper::before { display: none; }
-          .pf-timeline-node-card { padding: 0.875rem; }
+          .pf-timeline-node-card { padding: 1rem; }
         }
       `}</style>
     </div>

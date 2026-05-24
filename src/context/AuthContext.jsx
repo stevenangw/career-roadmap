@@ -5,7 +5,7 @@ import { DEMO_PROFILE } from '../lib/constants';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => isSupabaseConfigured ? null : { id: 'demo-user', email: 'demo@pathforge.dev' });
+  const [user, setUser] = useState(() => isSupabaseConfigured ? null : { id: 'demo-user', email: 'demo@stevenjourney.dev' });
   const [profile, setProfile] = useState(() => isSupabaseConfigured ? null : DEMO_PROFILE);
   const [loading, setLoading] = useState(() => isSupabaseConfigured);
   const [isDemo] = useState(() => !isSupabaseConfigured);
@@ -74,7 +74,7 @@ export function AuthProvider({ children }) {
 
   async function signInWithGoogle() {
     if (!isSupabaseConfigured) {
-      setUser({ id: 'demo-user', email: 'demo@pathforge.dev' });
+      setUser({ id: 'demo-user', email: 'demo@stevenjourney.dev' });
       setProfile(DEMO_PROFILE);
       return;
     }

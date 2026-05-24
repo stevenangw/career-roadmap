@@ -9,11 +9,12 @@ function cloneData(data) {
 }
 
 // LocalStorage key for demo mode
-const DEMO_STORAGE_KEY = 'pathforge-demo-paths-v2';
+const DEMO_STORAGE_KEY = 'steven-journey-demo-paths-v2';
+const LEGACY_STORAGE_KEY = 'pathforge-demo-paths-v2';
 
 function loadDemoPaths() {
   try {
-    const saved = localStorage.getItem(DEMO_STORAGE_KEY);
+    const saved = localStorage.getItem(DEMO_STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
     if (saved) return JSON.parse(saved);
   } catch (err) {
     console.error('Failed to parse local paths', err);

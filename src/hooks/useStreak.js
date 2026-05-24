@@ -1,12 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-const STREAK_KEY = 'pathforge-streak';
+const STREAK_KEY = 'steven-journey-streak';
+const LEGACY_STREAK_KEY = 'pathforge-streak';
 
 function loadStreak() {
   try {
-    const saved = localStorage.getItem(STREAK_KEY);
-    if (saved) return JSON.parse(saved);
-  } catch {}
+    const saved = localStorage.getItem(STREAK_KEY) || localStorage.getItem(LEGACY_STREAK_KEY);
+    if (saved) {
+      const data = JSON.parse(saved);
+      if (data.lastDate) {
+        const today = new Date().toISOString().split('T')[0];
+        const last = new Date(data.lastDate);
+        const now = new Date(today);
+        const diffDays = Math.floor((now - last) / 86400000);
+        if (diffDays > 1) {
+          const reset = { count: 0, lastDate: null };
+          localStorage.setItem(STREAK_KEY, JSON.stringify(reset));
+          return reset;
+        }
+      }
+      return data;
+    }
+  } catch (err) {
+    console.error('Failed to load streak:', err);
+  }
   return { count: 0, lastDate: null };
 }
 
@@ -16,25 +33,6 @@ function saveStreak(data) {
 
 export function useStreak() {
   const [streak, setStreak] = useState(loadStreak);
-
-  useEffect(() => {
-    // Check if streak is still active on mount
-    const today = new Date().toISOString().split('T')[0];
-    const { lastDate, count } = streak;
-
-    if (!lastDate) return;
-
-    const last = new Date(lastDate);
-    const now = new Date(today);
-    const diffDays = Math.floor((now - last) / 86400000);
-
-    if (diffDays > 1) {
-      // Streak broken
-      const reset = { count: 0, lastDate: null };
-      setStreak(reset);
-      saveStreak(reset);
-    }
-  }, []);
 
   function recordActivity() {
     const today = new Date().toISOString().split('T')[0];

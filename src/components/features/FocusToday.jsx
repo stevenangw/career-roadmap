@@ -16,8 +16,8 @@ export default function FocusToday({ nodes = [] }) {
   return (
     <div className="pf-focus">
       <h3 className="pf-focus-title">
-        <Target size={16} />
-        <span>Fokus Hari Ini</span>
+        <Target size={15} />
+        <span>Focus Today</span>
       </h3>
       <div className="pf-focus-list stagger-children">
         {focus.map((node) => {
@@ -25,7 +25,7 @@ export default function FocusToday({ nodes = [] }) {
           return (
             <div
               key={node.id}
-              className="pf-focus-item"
+              className="pf-focus-item glass"
               onClick={() => navigate(`/roadmap/${node.pathId}`)}
               style={{ '--item-color': typeConfig.color }}
             >
@@ -37,7 +37,7 @@ export default function FocusToday({ nodes = [] }) {
                   <span className="pf-focus-path">{node.pathTitle}</span>
                 </div>
               </div>
-              <ArrowRight size={16} className="pf-focus-arrow" />
+              <ArrowRight size={15} className="pf-focus-arrow" />
             </div>
           );
         })}
@@ -46,36 +46,35 @@ export default function FocusToday({ nodes = [] }) {
         .pf-focus-title {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.5rem;
           font-size: 0.95rem;
-          font-weight: 500;
+          font-weight: 600;
           color: var(--color-text-secondary);
           margin-bottom: 0.75rem;
         }
         .pf-focus-list {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.6rem;
         }
         .pf-focus-item {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          padding: 0.75rem 1rem;
-          background: var(--color-bg-surface);
+          gap: 1rem;
+          padding: 0.85rem 1.15rem;
+          border-radius: var(--radius-xl);
           border: 1px solid var(--color-border-primary);
-          border-radius: var(--radius-lg);
           cursor: pointer;
-          transition: all var(--transition-fast);
+          transition: all var(--transition-normal);
         }
         .pf-focus-item:hover {
-          background: var(--color-bg-elevated);
+          background: var(--color-bg-hover);
           border-color: var(--color-border-secondary);
           transform: translateX(4px);
         }
         .pf-focus-color {
-          width: 4px;
-          height: 32px;
+          width: 5px;
+          height: 34px;
           border-radius: var(--radius-full);
           flex-shrink: 0;
         }
@@ -85,8 +84,8 @@ export default function FocusToday({ nodes = [] }) {
         }
         .pf-focus-label {
           display: block;
-          font-size: 0.85rem;
-          font-weight: 500;
+          font-size: 0.875rem;
+          font-weight: 600;
           color: var(--color-text-primary);
           white-space: nowrap;
           overflow: hidden;
@@ -96,16 +95,22 @@ export default function FocusToday({ nodes = [] }) {
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          margin-top: 0.2rem;
+          margin-top: 0.25rem;
         }
         .pf-focus-path {
           font-size: 0.7rem;
-          color: var(--color-text-tertiary);
+          color: var(--color-text-secondary);
           font-family: var(--font-mono);
+          font-weight: 500;
         }
         .pf-focus-arrow {
           color: var(--color-text-tertiary);
           flex-shrink: 0;
+          transition: transform var(--transition-fast);
+        }
+        .pf-focus-item:hover .pf-focus-arrow {
+          transform: translateX(3px);
+          color: var(--color-text-primary);
         }
       `}</style>
     </div>

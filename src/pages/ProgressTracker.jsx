@@ -44,13 +44,12 @@ export default function ProgressTracker() {
     const next = nextMap[currentStatus] || 'todo';
     await updateNodeStatus(nodeId, next);
     recordActivity();
-    if (next === 'done') toast('Task selesai.', 'success');
+    if (next === 'done') toast('Task completed.', 'success');
   }
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <SkeletonCard />
+      <div className="pf-progress-loading">
         <SkeletonCard />
         <SkeletonCard />
       </div>
@@ -59,76 +58,101 @@ export default function ProgressTracker() {
 
   return (
     <div className="pf-progress-page animate-fade-in">
-      <h1>Progress Tracker</h1>
-      <p className="pf-progress-subtitle">Semua task dari semua career path</p>
+      <div className="pf-progress-header">
+        <h1>Progress Tracker</h1>
+        <p className="pf-progress-subtitle">All sub-tasks across all career roadmaps</p>
+      </div>
 
-      {/* Overall progress */}
-      <div className="pf-progress-overview">
-        <ProgressBar value={stats.overallProgress} color="#6366F1" size="lg" />
+      {/* Overall progress block */}
+      <div className="pf-progress-overview glass">
+        <div className="pf-progress-overview-text">
+          <span>Overall Progress</span>
+          <span className="pf-progress-percent">{stats.overallProgress}%</span>
+        </div>
+        <ProgressBar value={stats.overallProgress} color="var(--color-accent-indigo)" size="md" showLabel={false} />
         <div className="pf-progress-counts">
-          <span><strong style={{ color: '#10B981' }}>{stats.done}</strong> selesai</span>
-          <span><strong style={{ color: '#F59E0B' }}>{stats.inProgress}</strong> berjalan</span>
-          <span><strong>{stats.todo}</strong> belum</span>
+          <span><strong style={{ color: 'var(--color-accent-green)' }}>{stats.done}</strong> completed</span>
+          <span><strong style={{ color: 'var(--color-accent-yellow)' }}>{stats.inProgress}</strong> in progress</span>
+          <span><strong>{stats.todo}</strong> to do</span>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="pf-progress-filters">
+      <div className="pf-progress-filters glass">
         <div className="pf-filter-group">
-          <Filter size={14} />
-          <select value={filterPath} onChange={(e) => setFilterPath(e.target.value)}>
-            <option value="all">Semua Path</option>
-            {paths.map((p) => (
-              <option key={p.id} value={p.id}>{p.title}</option>
-            ))}
-          </select>
-          <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
-            <option value="all">Semua Status</option>
-            {Object.entries(STATUS_CONFIG).map(([k, v]) => (
-              <option key={k} value={k}>{v.label}</option>
-            ))}
-          </select>
-          <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
-            <option value="all">Semua Type</option>
-            {Object.entries(NODE_TYPES).map(([k, v]) => (
-              <option key={k} value={k}>{v.label}</option>
-            ))}
-          </select>
+          <Filter size={13} className="pf-filter-icon" />
+          <div className="pf-select-wrapper">
+            <select value={filterPath} onChange={(e) => setFilterPath(e.target.value)}>
+              <option value="all">All Paths</option>
+              {paths.map((p) => (
+                <option key={p.id} value={p.id}>{p.title}</option>
+              ))}
+            </select>
+          </div>
+          <div className="pf-select-wrapper">
+            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+              <option value="all">All Statuses</option>
+              {Object.entries(STATUS_CONFIG).map(([k, v]) => (
+                <option key={k} value={k}>{v.label}</option>
+              ))}
+            </select>
+          </div>
+          <div className="pf-select-wrapper">
+            <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+              <option value="all">All Types</option>
+              {Object.entries(NODE_TYPES).map(([k, v]) => (
+                <option key={k} value={k}>{v.label}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="pf-filter-group">
-          <SortAsc size={14} />
-          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-            <option value="status">Sort: Status</option>
-            <option value="updated">Sort: Updated</option>
-            <option value="path">Sort: Path</option>
-          </select>
+          <SortAsc size={13} className="pf-filter-icon" />
+          <div className="pf-select-wrapper">
+            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+              <option value="status">Sort: Status</option>
+              <option value="updated">Sort: Recent</option>
+              <option value="path">Sort: Path</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* Task list */}
-      <div className="pf-task-list">
+      <div className="pf-task-list stagger-children">
         {filtered.length === 0 ? (
-          <div className="pf-no-tasks">Tidak ada task yang cocok dengan filter.</div>
+          <div className="pf-no-tasks glass">No tasks match the current filters.</div>
         ) : (
           filtered.map((node) => {
             const StatusIcon = statusIcons[node.status] || Circle;
+            const isDone = node.status === 'done';
+            const isInProgress = node.status === 'in_progress';
+
             return (
-              <div key={node.id} className={`pf-task-item ${node.status === 'done' ? 'done' : ''}`}>
+              <div 
+                key={node.id} 
+                className={`pf-task-item glass ${isDone ? 'done' : ''} ${isInProgress ? 'in-progress' : ''}`}
+                style={{
+                  '--item-border': node.pathColor,
+                }}
+              >
                 <button
-                  className="pf-task-status-btn"
+                  className={`pf-task-status-btn ${node.status}`}
                   onClick={() => quickToggle(node.id, node.status)}
-                  style={{ color: STATUS_CONFIG[node.status]?.color }}
+                  style={{ 
+                    color: isDone ? 'var(--color-accent-green)' : isInProgress ? 'var(--color-accent-yellow)' : 'var(--color-text-tertiary)' 
+                  }}
                   title="Toggle status"
                 >
-                  <StatusIcon size={18} className={node.status === 'in_progress' ? 'animate-spin' : ''} />
+                  <StatusIcon size={16} className={isInProgress ? 'animate-spin' : ''} />
                 </button>
                 <div className="pf-task-info">
                   <span className="pf-task-label">{node.label}</span>
                   <div className="pf-task-meta">
                     <div className="pf-task-path-dot" style={{ background: node.pathColor }} />
-                    <span>{node.pathTitle}</span>
+                    <span className="pf-task-path-title">{node.pathTitle}</span>
                     <span>·</span>
-                    <span>{node.phaseTitle}</span>
+                    <span className="pf-task-phase-title">{node.phaseTitle}</span>
                     <Badge type={node.type} />
                   </div>
                 </div>
@@ -145,126 +169,220 @@ export default function ProgressTracker() {
         .pf-progress-page {
           display: flex;
           flex-direction: column;
-          gap: 1.25rem;
+          gap: 1.5rem;
+          max-width: 900px;
+          margin: 0 auto;
+          padding-bottom: 3rem;
         }
-        .pf-progress-page h1 { font-size: 1.5rem; }
+
+        .pf-progress-header h1 {
+          font-size: 1.55rem;
+          letter-spacing: -0.025em;
+        }
         .pf-progress-subtitle {
           font-size: 0.875rem;
           color: var(--color-text-secondary);
-          margin-top: -0.75rem;
+          margin-top: 0.25rem;
         }
+
+        /* Overview glass card */
         .pf-progress-overview {
-          background: var(--color-bg-surface);
-          border: 1px solid var(--color-border-primary);
-          border-radius: var(--radius-xl);
-          padding: 1.25rem;
+          border-radius: var(--radius-2xl);
+          padding: 1.5rem 1.75rem;
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
+          gap: 1rem;
+          border: 1px solid var(--color-border-primary);
+          box-shadow: var(--shadow-md);
+        }
+        .pf-progress-overview-text {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: var(--font-heading);
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+        .pf-progress-percent {
+          font-size: 1.25rem;
+          color: var(--color-accent-indigo);
         }
         .pf-progress-counts {
           display: flex;
           gap: 1.5rem;
-          font-size: 0.8rem;
+          font-size: 0.775rem;
           color: var(--color-text-secondary);
           font-family: var(--font-mono);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          border-top: 1px solid var(--color-border-primary);
+          padding-top: 0.85rem;
         }
+
+        /* Filters Bar */
         .pf-progress-filters {
           display: flex;
           align-items: center;
           justify-content: space-between;
           flex-wrap: wrap;
-          gap: 0.75rem;
+          gap: 1rem;
+          padding: 1rem 1.25rem;
+          border-radius: var(--radius-xl);
+          border: 1px solid var(--color-border-primary);
+          box-shadow: var(--shadow-sm);
         }
         .pf-filter-group {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.65rem;
+        }
+        .pf-filter-icon {
           color: var(--color-text-tertiary);
+          margin-right: 0.15rem;
+        }
+        .pf-select-wrapper {
+          position: relative;
         }
         .pf-filter-group select {
-          padding: 0.4rem 0.6rem;
-          font-size: 0.8rem;
+          padding: 0.45rem 1.5rem 0.45rem 0.75rem;
+          font-size: 0.825rem;
           font-family: var(--font-body);
-          background: var(--color-bg-surface);
+          background: var(--color-bg-elevated);
           color: var(--color-text-primary);
           border: 1px solid var(--color-border-primary);
           border-radius: var(--radius-md);
           cursor: pointer;
+          transition: all var(--transition-fast);
+          appearance: none;
+          outline: none;
+          min-width: 120px;
         }
+        .pf-filter-group select:hover {
+          border-color: var(--color-border-secondary);
+        }
+        .pf-filter-group select:focus {
+          border-color: var(--color-accent-indigo);
+          box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+        }
+        .pf-select-wrapper::after {
+          content: '↓';
+          font-size: 0.65rem;
+          position: absolute;
+          right: 0.65rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--color-text-tertiary);
+          pointer-events: none;
+        }
+
+        /* Task Items list */
         .pf-task-list {
           display: flex;
           flex-direction: column;
-          gap: 0.375rem;
+          gap: 0.6rem;
         }
         .pf-task-item {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          padding: 0.75rem 1rem;
-          background: var(--color-bg-surface);
+          gap: 1rem;
+          padding: 1rem 1.25rem;
+          border-radius: var(--radius-xl);
           border: 1px solid var(--color-border-primary);
-          border-radius: var(--radius-lg);
-          transition: all var(--transition-fast);
+          transition: all var(--transition-normal);
+          box-shadow: var(--shadow-sm);
         }
         .pf-task-item:hover {
-          background: var(--color-bg-elevated);
-          border-color: var(--color-border-secondary);
+          transform: translateX(3px);
+          border-color: var(--item-border);
+          background: color-mix(in srgb, var(--item-border) 3%, var(--color-bg-surface));
+          box-shadow: var(--shadow-md);
+        }
+        .pf-task-item.in-progress {
+          border-color: var(--color-accent-yellow);
         }
         .pf-task-item.done {
-          opacity: 0.5;
+          opacity: 0.55;
         }
+
         .pf-task-status-btn {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 32px;
-          height: 32px;
+          width: 28px;
+          height: 28px;
           border: none;
-          background: transparent;
-          border-radius: var(--radius-md);
+          background: var(--color-bg-elevated);
+          border-radius: 50%;
           cursor: pointer;
-          transition: background var(--transition-fast);
+          transition: all var(--transition-fast);
           flex-shrink: 0;
+          border: 1px solid var(--color-border-primary);
         }
-        .pf-task-status-btn:hover { background: var(--color-bg-hover); }
-        .pf-task-info { flex: 1; min-width: 0; }
+        .pf-task-status-btn:hover {
+          background: var(--color-bg-hover);
+        }
+        .pf-task-status-btn.done {
+          background: rgba(16, 185, 129, 0.1);
+          border-color: var(--color-accent-green);
+        }
+        .pf-task-status-btn.in_progress {
+          border-color: var(--color-accent-yellow);
+          background: rgba(245, 158, 11, 0.08);
+        }
+
+        .pf-task-info {
+          flex: 1;
+          min-width: 0;
+        }
         .pf-task-label {
           display: block;
-          font-size: 0.85rem;
+          font-size: 0.925rem;
           font-weight: 500;
           color: var(--color-text-primary);
+        }
+        .pf-task-item.done .pf-task-label {
+          text-decoration: line-through;
+          color: var(--color-text-tertiary);
         }
         .pf-task-meta {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
-          margin-top: 0.2rem;
-          font-size: 0.7rem;
-          color: var(--color-text-tertiary);
+          gap: 0.5rem;
+          margin-top: 0.3rem;
+          font-size: 0.75rem;
+          color: var(--color-text-secondary);
           flex-wrap: wrap;
         }
         .pf-task-path-dot {
-          width: 6px;
-          height: 6px;
+          width: 7px;
+          height: 7px;
           border-radius: 50%;
           flex-shrink: 0;
         }
+        .pf-task-path-title {
+          font-weight: 600;
+        }
         .pf-task-time {
-          font-size: 0.7rem;
+          font-size: 0.725rem;
           font-family: var(--font-mono);
           color: var(--color-text-tertiary);
           white-space: nowrap;
           flex-shrink: 0;
         }
+
         .pf-no-tasks {
           text-align: center;
-          padding: 3rem;
+          padding: 4rem;
           color: var(--color-text-tertiary);
-          font-size: 0.875rem;
+          font-size: 0.9rem;
+          border-radius: var(--radius-xl);
+          border: 1px solid var(--color-border-primary);
         }
-        @media (max-width: 640px) {
-          .pf-progress-filters { flex-direction: column; align-items: flex-start; }
+
+        @media (max-width: 768px) {
+          .pf-progress-filters { flex-direction: column; align-items: flex-start; padding: 1rem; }
+          .pf-filter-group { width: 100%; flex-wrap: wrap; }
+          .pf-select-wrapper select { width: 100%; }
           .pf-task-time { display: none; }
         }
       `}</style>

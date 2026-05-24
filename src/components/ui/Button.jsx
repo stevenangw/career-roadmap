@@ -44,58 +44,69 @@ const Button = forwardRef(function Button(
           border: none;
           border-radius: var(--radius-lg);
           cursor: pointer;
-          transition: all var(--transition-fast);
+          transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
           white-space: nowrap;
           letter-spacing: -0.01em;
+          box-shadow: var(--shadow-sm);
+        }
+        .pf-btn:active:not(:disabled) {
+          transform: scale(0.97);
         }
         .pf-btn:disabled {
-          opacity: 0.5;
+          opacity: 0.45;
           cursor: not-allowed;
+          box-shadow: none;
         }
-        .pf-btn-sm { padding: 0.375rem 0.75rem; font-size: 0.8125rem; }
-        .pf-btn-md { padding: 0.5rem 1.25rem; font-size: 0.875rem; }
-        .pf-btn-lg { padding: 0.75rem 1.75rem; font-size: 1rem; }
+        .pf-btn-sm { padding: 0.4rem 0.85rem; font-size: 0.8rem; border-radius: var(--radius-md); }
+        .pf-btn-md { padding: 0.55rem 1.35rem; font-size: 0.875rem; border-radius: var(--radius-lg); }
+        .pf-btn-lg { padding: 0.75rem 1.85rem; font-size: 0.95rem; border-radius: var(--radius-xl); }
 
         .pf-btn-primary {
-          background: var(--color-text-primary);
-          color: var(--color-bg-primary);
+          background: var(--color-accent-indigo);
+          color: #ffffff;
         }
         .pf-btn-primary:hover:not(:disabled) {
-          opacity: 0.9;
+          background: hsl(243, 75%, 64%);
+          box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
         }
         .pf-btn-secondary {
           background: var(--color-bg-elevated);
           color: var(--color-text-primary);
-          border: 1px solid var(--color-border-secondary);
+          border: 1px solid var(--color-border-primary);
         }
         .pf-btn-secondary:hover:not(:disabled) {
           background: var(--color-bg-hover);
-          border-color: var(--color-border-accent);
+          border-color: var(--color-border-secondary);
         }
         .pf-btn-ghost {
           background: transparent;
           color: var(--color-text-secondary);
+          box-shadow: none;
         }
         .pf-btn-ghost:hover:not(:disabled) {
           background: var(--color-bg-hover);
           color: var(--color-text-primary);
         }
         .pf-btn-danger {
-          background: rgba(239, 68, 68, 0.15);
-          color: #EF4444;
-          border: 1px solid rgba(239, 68, 68, 0.3);
+          background: rgba(239, 68, 68, 0.12);
+          color: hsl(0, 84%, 60%);
+          border: 1px solid rgba(239, 68, 68, 0.25);
         }
         .pf-btn-danger:hover:not(:disabled) {
-          background: rgba(239, 68, 68, 0.25);
+          background: rgba(239, 68, 68, 0.2);
+          box-shadow: 0 4px 16px rgba(239, 68, 68, 0.15);
         }
         .pf-btn-outline {
-          background: transparent;
+          background: rgba(255, 255, 255, 0.02);
           color: var(--color-text-primary);
-          border: 1px solid var(--color-border-secondary);
+          border: 1px solid var(--color-border-primary);
+        }
+        [data-theme="light"] .pf-btn-outline {
+          background: rgba(0, 0, 0, 0.01);
         }
         .pf-btn-outline:hover:not(:disabled) {
           background: var(--color-bg-hover);
-          border-color: var(--color-border-accent);
+          border-color: var(--color-border-secondary);
         }
       `}</style>
     </button>

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Map, BarChart3, Settings, LogOut, Compass } from 'lucide-react';
+import { LayoutDashboard, BarChart3, Settings, LogOut, Compass } from 'lucide-react';
 import ThemeToggle from '../ui/ThemeToggle';
 import { useAuth } from '../../context/AuthContext';
 
@@ -14,11 +14,11 @@ export default function Navbar() {
   const location = useLocation();
 
   return (
-    <nav className="pf-navbar">
+    <nav className="pf-navbar glass">
       <div className="pf-navbar-inner">
         <Link to="/dashboard" className="pf-navbar-brand">
-          <Compass size={24} className="pf-navbar-logo" />
-          <span>PathForge</span>
+          <Compass size={22} className="pf-navbar-logo animate-pulse" />
+          <span>Steven's Journey</span>
         </Link>
 
         <div className="pf-navbar-links">
@@ -28,7 +28,7 @@ export default function Navbar() {
               to={item.path}
               className={`pf-nav-link ${location.pathname === item.path ? 'active' : ''}`}
             >
-              <item.icon size={16} />
+              <item.icon size={15} />
               <span>{item.label}</span>
             </Link>
           ))}
@@ -42,7 +42,7 @@ export default function Navbar() {
                 {profile.avatar_url ? (
                   <img src={profile.avatar_url} alt={profile.name} />
                 ) : (
-                  <span>{(profile.name || 'U')[0].toUpperCase()}</span>
+                  <span>{(profile.name || 'S')[0].toUpperCase()}</span>
                 )}
               </div>
               <button className="pf-nav-logout" onClick={signOut} title="Logout">
@@ -57,15 +57,14 @@ export default function Navbar() {
           position: sticky;
           top: 0;
           z-index: var(--z-dropdown);
-          background: var(--color-bg-primary);
           border-bottom: 1px solid var(--color-border-primary);
-          backdrop-filter: blur(12px);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
         }
         .pf-navbar-inner {
           max-width: 1280px;
           margin: 0 auto;
           padding: 0 1.5rem;
-          height: 56px;
+          height: 60px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -80,7 +79,7 @@ export default function Navbar() {
           font-size: 1.15rem;
           color: var(--color-text-primary);
           text-decoration: none;
-          letter-spacing: -0.02em;
+          letter-spacing: -0.025em;
         }
         .pf-navbar-logo {
           color: var(--color-accent-indigo);
@@ -88,18 +87,18 @@ export default function Navbar() {
         .pf-navbar-links {
           display: flex;
           align-items: center;
-          gap: 0.25rem;
+          gap: 0.35rem;
         }
         .pf-nav-link {
           display: flex;
           align-items: center;
           gap: 0.4rem;
-          padding: 0.4rem 0.75rem;
+          padding: 0.45rem 0.9rem;
           font-size: 0.85rem;
           font-weight: 500;
-          color: var(--color-text-tertiary);
+          color: var(--color-text-secondary);
           text-decoration: none;
-          border-radius: var(--radius-md);
+          border-radius: var(--radius-full);
           transition: all var(--transition-fast);
         }
         .pf-nav-link:hover {
@@ -107,13 +106,14 @@ export default function Navbar() {
           background: var(--color-bg-hover);
         }
         .pf-nav-link.active {
-          color: var(--color-text-primary);
-          background: var(--color-bg-elevated);
+          color: var(--color-text-inverse);
+          background: var(--color-text-primary);
+          box-shadow: var(--shadow-sm);
         }
         .pf-navbar-actions {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.75rem;
         }
         .pf-navbar-user {
           display: flex;
@@ -132,6 +132,8 @@ export default function Navbar() {
           font-size: 0.8rem;
           font-weight: 600;
           color: #fff;
+          border: 1.5px solid var(--color-border-primary);
+          box-shadow: var(--shadow-sm);
         }
         .pf-navbar-avatar img {
           width: 100%;
@@ -153,7 +155,7 @@ export default function Navbar() {
         }
         .pf-nav-logout:hover {
           background: rgba(239, 68, 68, 0.1);
-          color: #EF4444;
+          color: hsl(0, 84%, 60%);
         }
         @media (max-width: 768px) {
           .pf-navbar-links { display: none; }

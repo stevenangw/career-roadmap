@@ -4,14 +4,14 @@ const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('pathforge-theme');
+    const saved = localStorage.getItem('steven-journey-theme') || localStorage.getItem('pathforge-theme');
     if (saved) return saved;
     return 'dark'; // Dark by default
   });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('pathforge-theme', theme);
+    localStorage.setItem('steven-journey-theme', theme);
   }, [theme]);
 
   function toggleTheme() {

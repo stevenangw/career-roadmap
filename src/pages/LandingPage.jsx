@@ -4,9 +4,9 @@ import { Compass, ArrowRight, CheckCircle, Map, Sparkles } from 'lucide-react';
 import Button from '../components/ui/Button';
 
 const steps = [
-  { icon: Sparkles, title: 'Sign In', desc: 'Login dengan Google dalam 1 klik' },
-  { icon: Map, title: 'Build Roadmap', desc: 'Buat career path yang personal' },
-  { icon: CheckCircle, title: 'Track Progress', desc: 'Tandai milestone, lihat progress' },
+  { icon: Sparkles, title: 'Secure Authentication', desc: 'One-click administrative Google sign-in' },
+  { icon: Map, title: 'Visual Roadmap', desc: 'Structured and highly personalized career path mapping' },
+  { icon: CheckCircle, title: 'Progress Tracking', desc: 'Log daily learning habits and track specific skill sets' },
 ];
 
 export default function LandingPage() {
@@ -26,15 +26,19 @@ export default function LandingPage() {
 
   return (
     <div className="pf-landing">
+      {/* Background Mesh Gradients */}
+      <div className="pf-landing-glow g1" />
+      <div className="pf-landing-glow g2" />
+
       {/* Navbar */}
-      <nav className="pf-landing-nav">
+      <nav className="pf-landing-nav glass animate-fade-in">
         <div className="pf-landing-nav-inner">
           <div className="pf-landing-brand">
-            <Compass size={24} />
-            <span>PathForge</span>
+            <Compass size={22} className="pf-landing-brand-icon" />
+            <span>Steven's Journey</span>
           </div>
           <Button onClick={handleGetStarted} size="sm">
-            {user ? 'Dashboard' : 'Get Started'}
+            {user ? 'Dashboard' : 'Sign In'}
           </Button>
         </div>
       </nav>
@@ -43,46 +47,57 @@ export default function LandingPage() {
       <section className="pf-hero">
         <div className="pf-hero-content animate-fade-in-up">
           <div className="pf-hero-badge">
-            <Sparkles size={14} />
-            <span>Career Roadmap Tracker</span>
+            <Sparkles size={13} />
+            <span>Steven's Career Journey</span>
           </div>
           <h1 className="pf-hero-title">
-            Your career roadmap.
+            My career roadmap.
             <br />
-            <span>Built by you. Tracked by data.</span>
+            <span>Built by me. Tracked by data.</span>
           </h1>
           <p className="pf-hero-desc">
-            Bangun peta karier visual, lacak progress setiap skill dan milestone,
-            dan bagikan perjalananmu ke dunia.
+            A visual, personal career roadmap to track milestones, skill progress,
+            and map out my professional future transparently.
           </p>
           <div className="pf-hero-actions">
             <Button onClick={handleGetStarted} size="lg" icon={ArrowRight}>
-              {user ? 'Go to Dashboard' : 'Mulai Sekarang'}
+              {user ? 'Open Dashboard' : 'Start Exploring'}
             </Button>
             <Button variant="outline" size="lg" onClick={() => navigate('/u/steven')}>
-              Lihat Demo
+              View Public Profile
             </Button>
           </div>
         </div>
 
         {/* Preview mock */}
-        <div className="pf-hero-preview animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          <div className="pf-preview-window">
+        <div className="pf-hero-preview animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          <div className="pf-preview-window glass">
             <div className="pf-preview-bar">
               <div className="pf-preview-dots">
                 <span /><span /><span />
               </div>
+              <div className="pf-preview-title-bar">steven-career-roadmap.json</div>
             </div>
             <div className="pf-preview-body">
               <div className="pf-preview-sidebar">
-                <div className="pf-preview-item active" style={{ '--c': '#3B82F6' }} />
-                <div className="pf-preview-item" style={{ '--c': '#8B5CF6' }} />
-                <div className="pf-preview-item" style={{ '--c': '#10B981' }} />
+                <div className="pf-preview-item active" style={{ '--c': 'var(--color-accent-indigo)' }} />
+                <div className="pf-preview-item" style={{ '--c': 'var(--color-accent-purple)' }} />
+                <div className="pf-preview-item" style={{ '--c': 'var(--color-accent-green)' }} />
               </div>
               <div className="pf-preview-main">
-                {[0, 1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="pf-preview-node" style={{ animationDelay: `${i * 0.1 + 0.5}s` }} />
-                ))}
+                {[0, 1, 2, 3, 4, 5].map((i) => {
+                  const colors = ['var(--color-accent-indigo)', 'var(--color-accent-purple)', 'var(--color-accent-green)', 'var(--color-accent-yellow)', 'var(--color-accent-orange)', 'var(--color-accent-pink)'];
+                  return (
+                    <div 
+                      key={i} 
+                      className="pf-preview-node" 
+                      style={{ 
+                        animationDelay: `${i * 0.15 + 0.4}s`,
+                        '--node-c': colors[i],
+                      }} 
+                    />
+                  );
+                })}
                 <div className="pf-preview-edge e1" />
                 <div className="pf-preview-edge e2" />
               </div>
@@ -93,14 +108,14 @@ export default function LandingPage() {
 
       {/* How it works */}
       <section className="pf-how">
-        <h2>Bagaimana cara kerjanya?</h2>
+        <h2>How does it work?</h2>
         <div className="pf-how-steps stagger-children">
           {steps.map((step, i) => (
-            <div key={i} className="pf-how-step">
+            <div key={i} className="pf-how-step glass">
               <div className="pf-how-icon">
-                <step.icon size={24} />
+                <step.icon size={22} />
               </div>
-              <div className="pf-how-number">{i + 1}</div>
+              <div className="pf-how-number">0{i + 1}</div>
               <h3>{step.title}</h3>
               <p>{step.desc}</p>
             </div>
@@ -110,17 +125,17 @@ export default function LandingPage() {
 
       {/* Features */}
       <section className="pf-features">
-        <h2>Kenapa PathForge?</h2>
+        <h2>Why Steven's Journey?</h2>
         <div className="pf-features-grid stagger-children">
           {[
-            { title: 'Visual Roadmap', desc: 'Node-based flowchart untuk setiap career path', color: '#3B82F6' },
-            { title: 'Multi-Path', desc: 'Track beberapa jalur karier sekaligus', color: '#8B5CF6' },
-            { title: 'Progress Tracking', desc: 'Tandai task, lihat persentase selesai', color: '#10B981' },
-            { title: 'Public Profile', desc: 'Bagikan roadmap via URL unik', color: '#F97316' },
-            { title: 'Streak & Gamifikasi', desc: 'Motivasi harian dengan streak counter', color: '#EF4444' },
-            { title: 'Real-time Sync', desc: 'Data tersimpan aman di cloud', color: '#EC4899' },
+            { title: 'Visual Roadmap', desc: 'Interactive timeline and structured system for every career path.', color: 'var(--color-accent-indigo)' },
+            { title: 'Multi-Path', desc: 'Track multiple focus areas simultaneously (Data Engineering, AI, Blockchain).', color: 'var(--color-accent-purple)' },
+            { title: 'Progress Tracking', desc: 'Log completed sub-tasks for real-time progress calculations.', color: 'var(--color-accent-green)' },
+            { title: 'Public Profile', desc: 'Share your career map with recruiters or the public via custom URLs.', color: 'var(--color-accent-orange)' },
+            { title: 'Streak Tracker', desc: 'Daily gamification to spark consistent learning habits.', color: 'var(--color-accent-red)' },
+            { title: 'Integrated Resources', desc: 'Direct links to high-quality learning resources and credentials.', color: 'var(--color-accent-pink)' },
           ].map((f, i) => (
-            <div key={i} className="pf-feature-card" style={{ '--fc': f.color }}>
+            <div key={i} className="pf-feature-card glass" style={{ '--fc': f.color }}>
               <div className="pf-feature-dot" />
               <h4>{f.title}</h4>
               <p>{f.desc}</p>
@@ -130,29 +145,54 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="pf-cta">
-        <h2>Siap memulai perjalanan?</h2>
-        <p>Gratis. Tidak perlu kartu kredit.</p>
-        <Button onClick={handleGetStarted} size="lg" icon={ArrowRight}>
-          Buat Roadmap Sekarang
-        </Button>
+      <section className="pf-cta animate-fade-in">
+        <div className="pf-cta-box glass">
+          <h2>Explore My Career Journey</h2>
+          <p>View my career targets, technical accomplishments, and recent portfolio.</p>
+          <Button onClick={handleGetStarted} size="lg" icon={ArrowRight}>
+            Open Dashboard
+          </Button>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="pf-footer">
+      <footer className="pf-footer animate-fade-in">
         <div className="pf-footer-inner">
           <div className="pf-footer-brand">
             <Compass size={18} />
-            <span>PathForge</span>
+            <span>Steven's Journey</span>
           </div>
-          <p>Built by Steven</p>
+          <p>© {new Date().getFullYear()} · Specially designed for Steven Ang</p>
         </div>
       </footer>
 
       <style>{`
         .pf-landing {
           min-height: 100vh;
+          position: relative;
           overflow-x: hidden;
+        }
+
+        /* Ambient background glow dots */
+        .pf-landing-glow {
+          position: absolute;
+          width: 500px;
+          height: 500px;
+          border-radius: 50%;
+          filter: blur(140px);
+          opacity: 0.12;
+          z-index: -1;
+          pointer-events: none;
+        }
+        .pf-landing-glow.g1 {
+          top: -100px;
+          left: -100px;
+          background: var(--color-accent-indigo);
+        }
+        .pf-landing-glow.g2 {
+          top: 40%;
+          right: -200px;
+          background: var(--color-accent-purple);
         }
 
         /* Nav */
@@ -162,15 +202,14 @@ export default function LandingPage() {
           left: 0;
           right: 0;
           z-index: 50;
-          backdrop-filter: blur(12px);
           border-bottom: 1px solid var(--color-border-primary);
-          background: color-mix(in srgb, var(--color-bg-primary) 80%, transparent);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
         .pf-landing-nav-inner {
-          max-width: 1100px;
+          max-width: 1200px;
           margin: 0 auto;
           padding: 0 1.5rem;
-          height: 56px;
+          height: 60px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -182,215 +221,270 @@ export default function LandingPage() {
           font-family: var(--font-heading);
           font-weight: 700;
           font-size: 1.15rem;
+          color: var(--color-text-primary);
+          letter-spacing: -0.025em;
+        }
+        .pf-landing-brand-icon {
           color: var(--color-accent-indigo);
         }
 
+        /* Hero */
         .pf-hero {
           position: relative;
-          padding: 8rem 1.5rem 4rem;
+          padding: 9rem 1.5rem 5rem;
           text-align: center;
-          max-width: 900px;
+          max-width: 1000px;
           margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 4rem;
+        }
+        .pf-hero-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         .pf-hero-badge {
           display: inline-flex;
           align-items: center;
-          gap: 0.4rem;
-          padding: 0.35rem 0.9rem;
+          gap: 0.45rem;
+          padding: 0.4rem 1.1rem;
           font-size: 0.75rem;
           font-weight: 600;
           color: var(--color-text-secondary);
-          background: var(--color-bg-surface);
-          border: 1px solid var(--color-border-secondary);
+          background: var(--color-bg-hover);
+          border: 1px solid var(--color-border-primary);
           border-radius: var(--radius-full);
-          margin-bottom: 1.5rem;
+          margin-bottom: 1.75rem;
           font-family: var(--font-mono);
           text-transform: uppercase;
-          letter-spacing: 0.04em;
+          letter-spacing: 0.06em;
+          box-shadow: var(--shadow-sm);
         }
         .pf-hero-title {
-          font-size: clamp(2rem, 5vw, 3.5rem);
-          line-height: 1.1;
-          margin-bottom: 1.25rem;
+          font-size: clamp(2.25rem, 6vw, 4rem);
+          line-height: 1.15;
+          margin-bottom: 1.5rem;
+          letter-spacing: -0.03em;
+        }
+        .pf-hero-title span {
+          background: linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-purple));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
         .pf-hero-desc {
-          font-size: 1.1rem;
+          font-size: 1.15rem;
           color: var(--color-text-secondary);
-          max-width: 520px;
-          margin: 0 auto 2rem;
-          line-height: 1.6;
+          max-width: 580px;
+          margin: 0 auto 2.5rem;
+          line-height: 1.65;
         }
         .pf-hero-actions {
           display: flex;
-          gap: 0.75rem;
+          gap: 1rem;
           justify-content: center;
           flex-wrap: wrap;
         }
 
         /* Preview window */
         .pf-hero-preview {
-          margin-top: 3rem;
-          perspective: 1000px;
+          perspective: 1200px;
+          max-width: 780px;
+          margin: 0 auto;
+          width: 100%;
         }
         .pf-preview-window {
-          background: var(--color-bg-surface);
-          border: 1px solid var(--color-border-primary);
           border-radius: var(--radius-xl);
           overflow: hidden;
           box-shadow: var(--shadow-xl);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
         .pf-preview-bar {
-          padding: 0.6rem 0.8rem;
+          padding: 0.75rem 1.25rem;
           border-bottom: 1px solid var(--color-border-primary);
+          display: flex;
+          align-items: center;
+          position: relative;
         }
         .pf-preview-dots {
           display: flex;
-          gap: 0.35rem;
+          gap: 0.4rem;
         }
         .pf-preview-dots span {
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          background: var(--color-border-accent);
+        }
+        .pf-preview-dots span:nth-child(1) { background: #FF5F56; }
+        .pf-preview-dots span:nth-child(2) { background: #FFBD2E; }
+        .pf-preview-dots span:nth-child(3) { background: #27C93F; }
+        .pf-preview-title-bar {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          font-family: var(--font-mono);
+          font-size: 0.75rem;
+          color: var(--color-text-tertiary);
         }
         .pf-preview-body {
           display: flex;
-          height: 200px;
+          height: 240px;
         }
         .pf-preview-sidebar {
-          width: 60px;
+          width: 70px;
           border-right: 1px solid var(--color-border-primary);
-          padding: 0.75rem;
+          padding: 1.25rem 0.85rem;
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
+          gap: 0.75rem;
         }
         .pf-preview-item {
-          height: 8px;
-          border-radius: 4px;
+          height: 6px;
+          border-radius: 3px;
           background: var(--c);
-          opacity: 0.3;
+          opacity: 0.25;
         }
-        .pf-preview-item.active { opacity: 1; }
+        .pf-preview-item.active { opacity: 0.95; }
         .pf-preview-main {
           flex: 1;
-          padding: 1.5rem;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.75rem;
-          align-items: flex-start;
+          padding: 2rem;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(2, 1fr);
+          gap: 1.5rem;
           position: relative;
         }
         .pf-preview-node {
-          width: 80px;
-          height: 40px;
           background: var(--color-bg-elevated);
-          border: 1px solid var(--color-border-secondary);
-          border-radius: var(--radius-md);
+          border: 1.5px solid var(--color-border-primary);
+          border-radius: var(--radius-lg);
           opacity: 0;
-          animation: fadeIn 0.4s ease-out forwards;
+          animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          transition: all var(--transition-fast);
+          position: relative;
         }
-        .pf-preview-edge {
+        .pf-preview-node::after {
+          content: '';
           position: absolute;
-          height: 2px;
-          background: var(--color-border-accent);
-          border-radius: 1px;
+          top: 6px;
+          left: 6px;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: var(--node-c);
+          box-shadow: 0 0 10px var(--node-c);
         }
-        .pf-preview-edge.e1 { width: 30px; top: 38px; left: 112px; }
-        .pf-preview-edge.e2 { width: 30px; top: 38px; left: 224px; }
+        .pf-preview-node:hover {
+          border-color: var(--node-c);
+          transform: scale(1.05);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
 
         /* How */
         .pf-how {
-          padding: 4rem 1.5rem;
-          max-width: 900px;
+          padding: 5rem 1.5rem;
+          max-width: 1000px;
           margin: 0 auto;
           text-align: center;
         }
         .pf-how h2 {
-          font-size: 1.75rem;
-          margin-bottom: 2.5rem;
+          font-size: 2rem;
+          margin-bottom: 3.5rem;
+          letter-spacing: -0.025em;
         }
         .pf-how-steps {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
           gap: 1.5rem;
         }
         .pf-how-step {
-          padding: 1.5rem;
-          background: var(--color-bg-surface);
-          border: 1px solid var(--color-border-primary);
+          padding: 2rem;
           border-radius: var(--radius-xl);
           text-align: center;
+          transition: transform var(--transition-normal);
+        }
+        .pf-how-step:hover {
+          transform: translateY(-4px);
         }
         .pf-how-icon {
           display: inline-flex;
-          padding: 0.75rem;
-          background: rgba(99, 102, 241, 0.1);
+          padding: 0.9rem;
+          background: color-mix(in srgb, var(--color-accent-indigo) 12%, transparent);
           color: var(--color-accent-indigo);
-          border-radius: var(--radius-lg);
-          margin-bottom: 0.75rem;
+          border-radius: var(--radius-xl);
+          margin-bottom: 1.25rem;
         }
         .pf-how-number {
           font-family: var(--font-mono);
-          font-size: 0.7rem;
+          font-size: 0.75rem;
           color: var(--color-text-tertiary);
-          margin-bottom: 0.4rem;
+          margin-bottom: 0.5rem;
+          letter-spacing: 0.05em;
         }
-        .pf-how-step h3 { font-size: 1rem; margin-bottom: 0.3rem; }
-        .pf-how-step p { font-size: 0.8rem; color: var(--color-text-secondary); }
+        .pf-how-step h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+        .pf-how-step p { font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.5; }
 
         /* Features */
         .pf-features {
-          padding: 4rem 1.5rem;
-          max-width: 900px;
+          padding: 5rem 1.5rem;
+          max-width: 1000px;
           margin: 0 auto;
           text-align: center;
         }
         .pf-features h2 {
-          font-size: 1.75rem;
-          margin-bottom: 2.5rem;
+          font-size: 2rem;
+          margin-bottom: 3.5rem;
+          letter-spacing: -0.025em;
         }
         .pf-features-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 1rem;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 1.25rem;
         }
         .pf-feature-card {
           text-align: left;
-          padding: 1.25rem;
-          background: var(--color-bg-surface);
-          border: 1px solid var(--color-border-primary);
+          padding: 1.75rem;
           border-radius: var(--radius-xl);
           transition: all var(--transition-normal);
         }
         .pf-feature-card:hover {
           border-color: var(--fc);
+          transform: translateY(-4px);
+          box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--fc) 20%, transparent);
         }
         .pf-feature-dot {
           width: 8px;
           height: 8px;
           border-radius: 50%;
           background: var(--fc);
-          margin-bottom: 0.75rem;
+          margin-bottom: 1rem;
+          box-shadow: 0 0 8px var(--fc);
         }
-        .pf-feature-card h4 { font-size: 0.95rem; margin-bottom: 0.3rem; }
-        .pf-feature-card p { font-size: 0.8rem; color: var(--color-text-secondary); }
+        .pf-feature-card h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .pf-feature-card p { font-size: 0.875rem; color: var(--color-text-secondary); line-height: 1.5; }
 
         /* CTA */
         .pf-cta {
-          padding: 5rem 1.5rem;
+          padding: 6rem 1.5rem;
           text-align: center;
+          max-width: 1000px;
+          margin: 0 auto;
         }
-        .pf-cta h2 { font-size: 2rem; margin-bottom: 0.5rem; }
-        .pf-cta p { color: var(--color-text-tertiary); margin-bottom: 1.5rem; }
+        .pf-cta-box {
+          border-radius: var(--radius-2xl);
+          padding: 4rem 2rem;
+        }
+        .pf-cta h2 { font-size: 2.25rem; margin-bottom: 0.75rem; letter-spacing: -0.025em; }
+        .pf-cta p { color: var(--color-text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
 
         /* Footer */
         .pf-footer {
           border-top: 1px solid var(--color-border-primary);
-          padding: 1.5rem;
+          padding: 2rem 1.5rem;
+          margin-top: 4rem;
         }
         .pf-footer-inner {
-          max-width: 1100px;
+          max-width: 1200px;
           margin: 0 auto;
           display: flex;
           align-items: center;
@@ -399,18 +493,22 @@ export default function LandingPage() {
         .pf-footer-brand {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.5rem;
           font-family: var(--font-heading);
-          font-weight: 600;
-          font-size: 0.9rem;
+          font-weight: 700;
+          font-size: 1rem;
           color: var(--color-text-secondary);
         }
-        .pf-footer p { font-size: 0.8rem; color: var(--color-text-tertiary); }
+        .pf-footer p { font-size: 0.85rem; color: var(--color-text-tertiary); }
 
-        @media (max-width: 640px) {
-          .pf-hero { padding: 6rem 1rem 2rem; }
-          .pf-hero-desc { font-size: 0.95rem; }
-          .pf-footer-inner { flex-direction: column; gap: 0.5rem; }
+        @media (max-width: 768px) {
+          .pf-hero { padding: 7rem 1rem 3rem; gap: 2rem; }
+          .pf-hero-desc { font-size: 1rem; }
+          .pf-footer-inner { flex-direction: column; gap: 0.75rem; }
+          .pf-preview-body { height: 180px; }
+          .pf-preview-sidebar { width: 50px; padding: 1rem 0.5rem; }
+          .pf-preview-main { padding: 1rem; }
+          .pf-cta-box { padding: 3rem 1.5rem; }
         }
       `}</style>
     </div>
