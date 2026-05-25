@@ -15,7 +15,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/career-roadmap">
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<LandingPage />} />
