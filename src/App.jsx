@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import AppLayout from './components/layout/AppLayout';
@@ -15,7 +15,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <BrowserRouter basename="/career-roadmap">
+        <HashRouter>
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<LandingPage />} />
@@ -33,8 +33,9 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
           <ToastContainer />
-        </BrowserRouter>
+        </HashRouter>
       </AuthProvider>
     </ThemeProvider>
   );
 }
+
