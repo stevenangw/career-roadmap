@@ -30,7 +30,7 @@ function RoadmapNode({ data, selected }) {
           <div className="pf-node-type-icon" style={{ background: nodeType.bgLight, color: nodeType.color }}>
             <TypeIcon size={14} />
           </div>
-          <div className="pf-node-status" style={{ color: isDone ? '#10B981' : isInProgress ? '#F59E0B' : '#666' }}>
+          <div className="pf-node-status" style={{ color: isDone ? 'var(--success)' : isInProgress ? 'var(--highlight)' : 'var(--muted)' }}>
             <StatusIcon size={14} className={isInProgress ? 'animate-spin' : ''} />
           </div>
         </div>

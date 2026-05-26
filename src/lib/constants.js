@@ -5,18 +5,18 @@ import {
 
 // Node type configuration
 export const NODE_TYPES = {
-  action: { label: 'Action', color: '#3B82F6', bgLight: 'rgba(59,130,246,0.12)', icon: Zap },
-  skill: { label: 'Skill', color: '#F59E0B', bgLight: 'rgba(245,158,11,0.12)', icon: BookOpen },
-  cert: { label: 'Certification', color: '#10B981', bgLight: 'rgba(16,185,129,0.12)', icon: Award },
-  project: { label: 'Project', color: '#F97316', bgLight: 'rgba(249,115,22,0.12)', icon: FolderKanban },
-  milestone: { label: 'Milestone', color: '#8B5CF6', bgLight: 'rgba(139,92,246,0.12)', icon: Trophy },
+  action: { label: 'Action', color: 'var(--accent)', bgLight: 'var(--surface-alt)', icon: Zap },
+  skill: { label: 'Skill', color: 'var(--highlight)', bgLight: 'var(--surface-alt)', icon: BookOpen },
+  cert: { label: 'Certification', color: 'var(--success)', bgLight: 'var(--surface-alt)', icon: Award },
+  project: { label: 'Project', color: 'var(--highlight)', bgLight: 'var(--surface-alt)', icon: FolderKanban },
+  milestone: { label: 'Milestone', color: 'var(--accent)', bgLight: 'var(--surface-alt)', icon: Trophy },
 };
 
 // Status configuration
 export const STATUS_CONFIG = {
-  todo: { label: 'To Do', color: '#666666', bg: 'rgba(102,102,102,0.15)' },
-  in_progress: { label: 'In Progress', color: '#F59E0B', bg: 'rgba(245,158,11,0.15)' },
-  done: { label: 'Done', color: '#10B981', bg: 'rgba(16,185,129,0.15)' },
+  todo: { label: 'To Do', color: 'var(--muted)', bg: 'var(--surface-alt)' },
+  in_progress: { label: 'In Progress', color: 'var(--highlight)', bg: 'var(--surface-alt)' },
+  done: { label: 'Done', color: 'var(--success)', bg: 'var(--surface-alt)' },
 };
 
 // Motivational quotes
@@ -40,10 +40,10 @@ export const QUOTES = [
 
 // Career track templates for onboarding
 export const CAREER_TEMPLATES = [
-  { id: 'data', title: 'Data & Analytics Engineer', icon: TrendingUp, color: '#3B82F6' },
-  { id: 'ai', title: 'AI Quality & Red Team', icon: Sparkles, color: '#8B5CF6' },
-  { id: 'blockchain', title: 'Blockchain Security Auditor', icon: Target, color: '#10B981' },
-  { id: 'custom', title: 'Custom Path', icon: Flame, color: '#F97316' },
+  { id: 'data', title: 'Data & Analytics Engineer', icon: TrendingUp, color: 'var(--accent)' },
+  { id: 'ai', title: 'AI Quality & Red Team', icon: Sparkles, color: 'var(--accent)' },
+  { id: 'blockchain', title: 'Blockchain Security Auditor', icon: Target, color: 'var(--success)' },
+  { id: 'custom', title: 'Custom Path', icon: Flame, color: 'var(--highlight)' },
 ];
 
 // Default demo user profile

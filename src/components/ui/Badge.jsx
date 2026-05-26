@@ -10,9 +10,9 @@ export default function Badge({ type, status, children, color, className = '' })
     label = children || cfg.label;
   } else if (status) {
     const statusColors = {
-      todo: { bg: 'rgba(102,102,102,0.15)', color: '#888' },
-      in_progress: { bg: 'rgba(245,158,11,0.15)', color: '#F59E0B' },
-      done: { bg: 'rgba(16,185,129,0.15)', color: '#10B981' },
+      todo: { bg: 'var(--surface-alt)', color: 'var(--muted)' },
+      in_progress: { bg: 'var(--surface-alt)', color: 'var(--highlight)' },
+      done: { bg: 'var(--surface-alt)', color: 'var(--success)' },
     };
     const cfg = statusColors[status] || statusColors.todo;
     bg = cfg.bg;

@@ -4,49 +4,90 @@
    Steven's Career Journey Design System (Premium & Immersive)
    ======================================== */
 
-@theme {
-  /* ---- Typography ---- */
-  --font-heading: 'Outfit', system-ui, sans-serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+:root {
+  /* ---- Fonts ---- */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* ---- Colors: Curated Muted Visual System (Default Light) ---- */
-  --color-bg-primary: #FBFBFA;
-  --color-bg-secondary: #F3F4F6;
-  --color-bg-surface: #FFFFFF;
-  --color-bg-elevated: #E5E7EB;
-  --color-bg-hover: #F9FAFB;
+  /* ---- Theme Light (Default) ---- */
+  --bg:              #F5F0E8;
+  --surface:         #FFFFFF;
+  --surface-alt:     #EDE8DF;
+  --text-primary:    #1C1C1C;
+  --text-secondary:  #6B6560;
+  --accent:          #2D4A3E;
+  --accent-hover:    #3D6454;
+  --highlight:       #C8A96E;
+  --border:          #DDD8CF;
+  --success:         #4A7C59;
+  --muted:           #9E9A94;
 
-  --color-border-primary: #EBEBEA;
-  --color-border-secondary: #D1D5DB;
-  --color-border-accent: #4E677D;
+  /* ---- Clamp Typography ---- */
+  --h1-clamp: clamp(1.75rem, 5vw, 3.5rem);
+  --h2-clamp: clamp(1.4rem, 4vw, 2.5rem);
+  --h3-clamp: clamp(1.1rem, 3vw, 1.8rem);
+  --body-min: 16px;
+}
 
-  --color-text-primary: #1C1F22;
-  --color-text-secondary: #6A737D;
-  --color-text-tertiary: #9CA3AF;
-  --color-text-inverse: #FBFBFA;
+.dark, [data-theme="dark"] {
+  /* ---- Theme Dark ---- */
+  --bg:              #141210;
+  --surface:         #1E1B18;
+  --surface-alt:     #252220;
+  --text-primary:    #EDEDE9;
+  --text-secondary:  #9A958F;
+  --accent:          #C8A96E;
+  --accent-hover:    #D4B97E;
+  --highlight:       #4A7C59;
+  --border:          #2E2B28;
+  --success:         #6AAE82;
+  --muted:           #5A5550;
+}
 
-  /* ---- Accent Colors (Sophisticated, Muted Hex) ---- */
-  --color-accent-blue: #4E677D; /* Slate Blue */
-  --color-accent-purple: #787A91; /* Muted Lavender */
-  --color-accent-green: #5E7A68; /* Sage Green */
-  --color-accent-yellow: #C2B092; /* Muted Ochre */
-  --color-accent-orange: #C49F86; /* Terracotta Dust */
-  --color-accent-red: #A37070; /* Dusty Rose */
-  --color-accent-pink: #B58393; /* Muted Rose */
-  --color-accent-indigo: #5F6F8C; /* Slate Indigo */
+@theme {
+  /* ---- Typography Mappings ---- */
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+
+  /* ---- Colors Mappings (Compatibility layer) ---- */
+  --color-bg-primary: var(--bg);
+  --color-bg-secondary: var(--surface-alt);
+  --color-bg-surface: var(--surface);
+  --color-bg-elevated: var(--surface-alt);
+  --color-bg-hover: var(--surface-alt);
+
+  --color-border-primary: var(--border);
+  --color-border-secondary: var(--border);
+  --color-border-accent: var(--accent);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--muted);
+  --color-text-inverse: var(--bg);
+
+  /* ---- Accent Colors mappings ---- */
+  --color-accent-blue: var(--accent);
+  --color-accent-purple: var(--accent);
+  --color-accent-green: var(--success);
+  --color-accent-yellow: var(--highlight);
+  --color-accent-orange: var(--highlight);
+  --color-accent-red: var(--highlight);
+  --color-accent-pink: var(--highlight);
+  --color-accent-indigo: var(--accent);
 
   /* ---- Node Type Colors ---- */
-  --color-node-action: #4E677D;
-  --color-node-skill: #C2B092;
-  --color-node-cert: #5E7A68;
-  --color-node-project: #C49F86;
-  --color-node-milestone: #787A91;
+  --color-node-action: var(--accent);
+  --color-node-skill: var(--highlight);
+  --color-node-cert: var(--success);
+  --color-node-project: var(--highlight);
+  --color-node-milestone: var(--accent);
 
   /* ---- Status Colors ---- */
-  --color-status-todo: #9CA3AF;
-  --color-status-progress: #C2B092;
-  --color-status-done: #5E7A68;
+  --color-status-todo: var(--muted);
+  --color-status-progress: var(--highlight);
+  --color-status-done: var(--success);
 
   /* ---- Spacing ---- */
   --spacing-xs: 0.25rem;
@@ -57,7 +98,7 @@
   --spacing-2xl: 3rem;
   --spacing-3xl: 4rem;
 
-  /* ---- Border Radius (Subtle & Professional) ---- */
+  /* ---- Border Radius ---- */
   --radius-sm: 8px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -65,7 +106,7 @@
   --radius-2xl: 12px;
   --radius-full: 9999px;
 
-  /* ---- Ambient Shadows (Soft & Subtle) ---- */
+  /* ---- Shadows ---- */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.05);
@@ -73,7 +114,7 @@
 
   /* ---- Transitions ---- */
   --transition-fast: 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
-  --transition-normal: 250ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
   --transition-slow: 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
 
   /* ---- Z-index ---- */
@@ -85,31 +126,10 @@
 }
 
 /* ========================================
-   Dark Theme Override (Sophisticated Muted Dark)
-   ======================================== */
-
-[data-theme="dark"] {
-  --color-bg-primary: #141618;
-  --color-bg-secondary: #1A1C1E;
-  --color-bg-surface: #1E2225;
-  --color-bg-elevated: #282C30;
-  --color-bg-hover: #2F343A;
-
-  --color-border-primary: rgba(255, 255, 255, 0.05);
-  --color-border-secondary: rgba(255, 255, 255, 0.1);
-  --color-border-accent: #4E677D;
-
-  --color-text-primary: #E3E5E6;
-  --color-text-secondary: #9CA3AF;
-  --color-text-tertiary: #6B7280;
-  --color-text-inverse: #141618;
-}
-
-/* ========================================
    Base Styles
    ======================================== */
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -123,24 +143,49 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  font-size: max(var(--body-min), 1rem);
+  background-color: var(--bg);
+  color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
-  transition: background-color var(--transition-normal), color var(--transition-normal);
+  transition: background 0.3s, color 0.3s;
   background-image: 
-    radial-gradient(at 0% 0%, hsla(243, 75%, 59%, 0.05) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, hsla(262, 83%, 62%, 0.05) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, hsla(243, 75%, 59%, 0.01) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(262, 83%, 62%, 0.01) 0px, transparent 50%);
   background-attachment: fixed;
 }
 
 [data-theme="light"] body {
   background-image: 
-    radial-gradient(at 0% 0%, hsla(243, 75%, 59%, 0.02) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, hsla(262, 83%, 62%, 0.02) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, hsla(243, 75%, 59%, 0.005) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(262, 83%, 62%, 0.005) 0px, transparent 50%);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1 {
+  font-family: var(--font-heading);
+  font-size: var(--h1-clamp);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-size: var(--h2-clamp);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: var(--h3-clamp);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.25;

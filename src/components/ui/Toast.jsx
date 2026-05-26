@@ -17,9 +17,9 @@ const icons = {
 };
 
 const colors = {
-  success: '#10B981',
-  error: '#EF4444',
-  info: '#3B82F6',
+  success: 'var(--success)',
+  error: 'hsl(0, 84%, 60%)',
+  info: 'var(--accent)',
 };
 
 export default function ToastContainer() {

@@ -4,14 +4,17 @@ const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('steven-journey-theme') || localStorage.getItem('pathforge-theme');
+    const saved = localStorage.getItem('career-theme');
     if (saved) return saved;
-    return 'dark'; // Dark by default
+    // Default: follow prefers-color-scheme
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return systemPrefersDark ? 'dark' : 'light';
   });
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('steven-journey-theme', theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('career-theme', theme);
   }, [theme]);
 
   function toggleTheme() {

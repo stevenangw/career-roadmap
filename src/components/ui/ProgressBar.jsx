@@ -1,4 +1,4 @@
-export default function ProgressBar({ value = 0, color = '#6366F1', size = 'md', showLabel = true, className = '' }) {
+export default function ProgressBar({ value = 0, color = 'var(--accent)', size = 'md', showLabel = true, className = '' }) {
   const clamped = Math.min(100, Math.max(0, value));
   const heights = { sm: '4px', md: '8px', lg: '12px' };
 
