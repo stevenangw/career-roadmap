@@ -170,9 +170,11 @@ export default function ProgressTracker() {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
+          width: 100%;
           max-width: 900px;
           margin: 0 auto;
           padding-bottom: 3rem;
+          box-sizing: border-box;
         }
 
         .pf-progress-header h1 {
@@ -187,6 +189,7 @@ export default function ProgressTracker() {
 
         /* Overview glass card */
         .pf-progress-overview {
+          width: 100%;
           border-radius: var(--radius-2xl);
           padding: 1.5rem 1.75rem;
           display: flex;
@@ -194,6 +197,7 @@ export default function ProgressTracker() {
           gap: 1rem;
           border: 1px solid var(--color-border-primary);
           box-shadow: var(--shadow-md);
+          box-sizing: border-box;
         }
         .pf-progress-overview-text {
           display: flex;
@@ -226,10 +230,12 @@ export default function ProgressTracker() {
           justify-content: space-between;
           flex-wrap: wrap;
           gap: 1rem;
+          width: 100%;
           padding: 1rem 1.25rem;
           border-radius: var(--radius-xl);
           border: 1px solid var(--color-border-primary);
           box-shadow: var(--shadow-sm);
+          box-sizing: border-box;
         }
         .pf-filter-group {
           display: flex;
@@ -280,16 +286,20 @@ export default function ProgressTracker() {
           display: flex;
           flex-direction: column;
           gap: 0.6rem;
+          width: 100%;
+          box-sizing: border-box;
         }
         .pf-task-item {
           display: flex;
           align-items: center;
           gap: 1rem;
+          width: 100%;
           padding: 1rem 1.25rem;
           border-radius: var(--radius-xl);
           border: 1px solid var(--color-border-primary);
           transition: all var(--transition-normal);
           box-shadow: var(--shadow-sm);
+          box-sizing: border-box;
         }
         .pf-task-item:hover {
           transform: translateX(3px);
