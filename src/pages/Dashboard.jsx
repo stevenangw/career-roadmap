@@ -220,7 +220,7 @@ export default function Dashboard() {
         /* Layout Grid */
         .pf-dash-layout {
           display: grid;
-          grid-template-columns: 7fr 3fr;
+          grid-template-columns: repeat(1, minmax(0, 1fr));
           gap: 2rem;
           align-items: start;
         }
@@ -255,7 +255,7 @@ export default function Dashboard() {
         }
         .pf-dash-paths {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          grid-template-columns: repeat(1, minmax(0, 1fr));
           gap: 1.25rem;
         }
         .pf-path-card {
@@ -337,7 +337,7 @@ export default function Dashboard() {
         }
         .pf-dash-stats-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(1, minmax(0, 1fr));
           gap: 1rem;
         }
         .pf-stat-item {
@@ -367,8 +367,21 @@ export default function Dashboard() {
           margin-top: 1rem;
         }
 
-        @media (max-width: 1024px) {
-          .pf-dash-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+        /* Responsive Breakpoints (Mobile First) */
+        @media (min-width: 480px) {
+          .pf-dash-stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (min-width: 640px) {
+          .pf-dash-paths {
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          }
+        }
+        @media (min-width: 768px) {
+          .pf-dash-layout {
+            grid-template-columns: 7fr 3fr;
+          }
         }
         @media (max-width: 640px) {
           .pf-dash-header { padding: 1.25rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
